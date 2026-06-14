@@ -701,8 +701,11 @@ function LegalNotice() {
           <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand">
             <ShieldCheck className="h-5 w-5" />
           </div>
-          <div className="text-sm leading-relaxed text-muted-foreground">
-            <strong className="text-brand">Rechtlicher Hinweis.</strong> ERCA Büro bietet ausschließlich organisatorische Unterstützung, Büroservice und Formularhilfe an. Wir leisten <strong>keine Rechtsberatung</strong>, <strong>keine Steuerberatung</strong> und <strong>keine Schuldnerberatung</strong>. Bei rechtlichen, steuerlichen oder schuldenrechtlichen Fragen vermitteln wir Sie gerne an entsprechend qualifizierte Stellen.
+          <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">
+            <p className="text-base font-semibold italic text-brand">„Wo unsere Leistung endet, beginnt unser Netzwerk."</p>
+            <p>
+              <strong className="text-brand">Wichtiger Hinweis.</strong> ERCA Büro bietet ausschließlich organisatorische Unterstützung, Büroservice sowie Hilfe bei Formularen, Verwaltungsangelegenheiten und Unternehmensorganisation an. Es erfolgt <strong>keine Rechtsberatung</strong>, <strong>keine Steuerberatung</strong> und <strong>keine Schuldnerberatung</strong>. Rechtsverbindliche Auskünfte dürfen ausschließlich von entsprechend zugelassenen Fachstellen erteilt werden.
+            </p>
           </div>
         </div>
       </div>

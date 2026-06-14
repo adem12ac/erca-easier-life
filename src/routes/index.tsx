@@ -587,10 +587,10 @@ function Contact() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="mx-auto max-w-2xl text-center">
           <motion.h2 variants={fadeUp} className="text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
-            Lassen Sie uns Ihre Bürokratie erledigen.
+            Schreiben Sie uns.
           </motion.h2>
           <motion.p variants={fadeUp} className="mt-4 text-base text-muted-foreground sm:text-lg">
-            Schreiben Sie uns – wir melden uns schnell und unverbindlich zurück.
+            Wir melden uns schnell zurück.
           </motion.p>
         </motion.div>
 
@@ -653,8 +653,8 @@ function Contact() {
             onSubmit={(e) => { e.preventDefault(); setSent(true); }}
             className="rounded-3xl border border-border bg-white p-7 shadow-soft lg:col-span-3 lg:p-9"
           >
-            <h3 className="text-xl font-bold text-brand">Kostenlose Anfrage</h3>
-            <p className="mt-1.5 text-sm text-muted-foreground">Wir melden uns innerhalb weniger Stunden bei Ihnen.</p>
+            <h3 className="text-xl font-bold text-brand">Kostenlos anfragen</h3>
+            <p className="mt-1.5 text-sm text-muted-foreground">Antwort meist am selben Tag.</p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <Field label="Name" name="name" required />

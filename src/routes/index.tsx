@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import {
   Phone, MessageCircle, Mail, MapPin, Clock, ChevronDown, Menu, X,
-  FileText, Building2, Globe2, Briefcase, Languages, Wallet, Wrench,
+  FileText, Building2, Globe2, Briefcase, Languages as LangIcon, Wallet, Wrench,
   ClipboardList, Network, Check, ArrowRight, Sparkles, ShieldCheck, Star,
 } from "lucide-react";
 import heroImg from "@/assets/hero.jpg";
@@ -219,7 +219,7 @@ function Hero() {
             animate={{ y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             className="absolute -right-3 top-6 hidden items-center gap-2 rounded-full bg-brand px-4 py-2 text-xs font-semibold text-brand-foreground shadow-lift sm:flex"
           >
-            <Languages className="h-3.5 w-3.5" /> 6 Sprachen
+            <LangIcon className="h-3.5 w-3.5" /> 6 Sprachen
           </motion.div>
         </motion.div>
       </div>
@@ -236,13 +236,13 @@ const LANGS = [
   { flag: "🇦🇱", name: "Albanisch" },
 ];
 
-function Languages() {
+function LanguagesSection() {
   return (
     <section className="border-y border-border bg-white py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true, margin: "-100px" }} variants={stagger} className="mx-auto max-w-2xl text-center">
           <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold text-brand">
-            <Languages className="h-3.5 w-3.5" /> Mehrsprachig
+            <LangIcon className="h-3.5 w-3.5" /> Mehrsprachig
           </motion.div>
           <motion.h2 variants={fadeUp} className="mt-4 text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
             Wir sprechen Ihre Sprache.

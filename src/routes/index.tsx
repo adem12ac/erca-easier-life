@@ -757,3 +757,47 @@ function FloatingWhatsApp() {
     </motion.a>
   );
 }
+
+function CookieBanner() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    try {
+      if (!localStorage.getItem("erca-cookies")) setVisible(true);
+    } catch { setVisible(true); }
+  }, []);
+  const choose = (val: "accepted" | "declined") => {
+    try { localStorage.setItem("erca-cookies", val); } catch { /* ignore */ }
+    setVisible(false);
+  };
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          initial={{ y: 120, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 120, opacity: 0 }}
+          transition={{ type: "spring", damping: 22, stiffness: 220 }}
+          className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-3xl rounded-3xl border border-border bg-white/95 p-4 shadow-lift backdrop-blur sm:inset-x-5 sm:bottom-5 sm:p-5"
+          role="dialog" aria-label="Cookie-Hinweis"
+        >
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+            <div className="flex items-start gap-3">
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand">
+                <ShieldCheck className="h-5 w-5" />
+              </div>
+              <div className="min-w-0 text-sm leading-relaxed text-foreground/80">
+                <strong className="text-brand">Cookies.</strong> Wir nutzen nur Cookies, die für die Seite nötig sind. Sie können selbst entscheiden.
+              </div>
+            </div>
+            <div className="flex shrink-0 gap-2 sm:ml-auto">
+              <button onClick={() => choose("declined")} className="flex-1 rounded-full border border-border bg-white px-4 py-2.5 text-sm font-semibold text-foreground/80 transition hover:bg-brand-soft sm:flex-none">
+                Ablehnen
+              </button>
+              <button onClick={() => choose("accepted")} className="flex-1 rounded-full bg-success px-5 py-2.5 text-sm font-semibold text-success-foreground btn-glow transition hover:scale-[1.03] sm:flex-none">
+                Akzeptieren
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}

@@ -62,6 +62,7 @@ function LandingPage() {
       <LegalNotice />
       <Footer />
       <FloatingWhatsApp />
+      <CookieBanner />
     </div>
   );
 }

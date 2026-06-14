@@ -345,15 +345,15 @@ function ProblemSolution() {
 }
 
 const SERVICES = [
-  { icon: FileText, title: "Behörden- und Formularservice", desc: "Unterstützung beim Ausfüllen von Anträgen, Formularen und beim Verstehen amtlicher Schreiben." },
-  { icon: Wallet, title: "Jobcenter- und Sozialleistungsservice", desc: "Hilfe bei Bürgergeld, Wohngeld, Kindergeld, Elterngeld und weiteren Sozialleistungen." },
-  { icon: Globe2, title: "Ausländer- und Integrationsservice", desc: "Unterstützung rund um Aufenthalt, Anmeldungen und Integrationsformalitäten." },
-  { icon: Briefcase, title: "Bewerbungs- und Karriereservice", desc: "Professionelle Bewerbungsunterlagen, Lebensläufe und Begleitung im Bewerbungsprozess." },
-  { icon: LangIcon, title: "Übersetzungs- und Sprachservice", desc: "Verständliche Erklärungen amtlicher Schreiben in mehreren Sprachen." },
-  { icon: ClipboardList, title: "Finanz- und Organisationsservice", desc: "Organisation Ihrer Unterlagen, Termine und privater Korrespondenz." },
-  { icon: Wrench, title: "Service für Handwerker & Kleinunternehmen", desc: "Büroorganisation, Schriftverkehr und Unterstützung im Alltag selbstständiger Betriebe." },
-  { icon: Building2, title: "Allgemeiner Büroservice", desc: "Schreiben, Drucken, Scannen, Dokumente vorbereiten und strukturieren." },
-  { icon: Network, title: "Netzwerk- und Vermittlungsservice", desc: "Vermittlung an passende Stellen, Berater und Ansprechpartner in unserem Netzwerk." },
+  { icon: FileText, title: "Behörden- und Formularservice", desc: "Anträge ausfüllen (Papier & online), Unterlagen prüfen, behördliche Schreiben verständlich erklären, Schriftverkehr, Terminvereinbarung und Vollmachten nach Ihren Vorgaben." },
+  { icon: Wallet, title: "Jobcenter- & Sozialleistungsservice", desc: "Bürgergeld, Wohngeld, Kindergeld, Kinderzuschlag, Bildung & Teilhabe: Antrag, Weiterbewilligung, Veränderungsmitteilungen und Vorbereitung Ihrer Termine." },
+  { icon: Globe2, title: "Ausländer- & Integrationsservice", desc: "Aufenthalt, Familiennachzug, Einbürgerung, Visum, Meldeangelegenheiten und Anmeldung zu Integrations- und Sprachkursen – Schreiben in Ihrer Sprache erklärt." },
+  { icon: Briefcase, title: "Bewerbungs- & Karriereservice", desc: "Lebenslauf, Anschreiben, Deckblatt und vollständige Bewerbungsmappe (auch als PDF). Optimierung, Online-Bewerbungen und Vorbereitung auf das Vorstellungsgespräch." },
+  { icon: LangIcon, title: "Übersetzungs- & Sprachservice", desc: "Mehrsprachig in Deutsch, Türkisch, Ukrainisch, Russisch, Albanisch und Arabisch. Vorbereitung von Übersetzungen und Vermittlung an vereidigte Übersetzer & Dolmetscher." },
+  { icon: ClipboardList, title: "Finanz- & Organisationsservice", desc: "Einnahmen- & Ausgabenübersichten, Haushaltspläne, Gläubiger- und Schuldenübersichten. Unterlagen für Ratenzahlungsanfragen und Beratungsstellen vorbereiten." },
+  { icon: Wrench, title: "Büroservice für Handwerk & Kleinunternehmen", desc: "Angebote, Rechnungen, Aufmaß, Materiallisten, Stundenzettel, Baustellendoku, Mahnungen, Nachtragsangebote und digitale Ablage – wir halten Ihnen den Rücken frei." },
+  { icon: Building2, title: "Allgemeiner Büroservice", desc: "Schriftverkehr, E-Mails, Dokumentenerstellung, Scannen & Archivieren, Aktensortierung, Terminverwaltung und telefonische Unterstützung – zuverlässig und diskret." },
+  { icon: Network, title: "Netzwerk- & Vermittlungsservice", desc: "Wir bereiten alles vor und vermitteln gezielt an Steuerberater, Anwälte, Schuldnerberatung, Notare, Übersetzer, Versicherungs- und Immobilienprofis sowie Fachbetriebe." },
 ];
 
 function Services() {

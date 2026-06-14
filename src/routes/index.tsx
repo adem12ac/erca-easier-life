@@ -349,7 +349,7 @@ const SERVICES = [
   { icon: Wallet, title: "Jobcenter- und Sozialleistungsservice", desc: "Hilfe bei Bürgergeld, Wohngeld, Kindergeld, Elterngeld und weiteren Sozialleistungen." },
   { icon: Globe2, title: "Ausländer- und Integrationsservice", desc: "Unterstützung rund um Aufenthalt, Anmeldungen und Integrationsformalitäten." },
   { icon: Briefcase, title: "Bewerbungs- und Karriereservice", desc: "Professionelle Bewerbungsunterlagen, Lebensläufe und Begleitung im Bewerbungsprozess." },
-  { icon: Languages, title: "Übersetzungs- und Sprachservice", desc: "Verständliche Erklärungen amtlicher Schreiben in mehreren Sprachen." },
+  { icon: LangIcon, title: "Übersetzungs- und Sprachservice", desc: "Verständliche Erklärungen amtlicher Schreiben in mehreren Sprachen." },
   { icon: ClipboardList, title: "Finanz- und Organisationsservice", desc: "Organisation Ihrer Unterlagen, Termine und privater Korrespondenz." },
   { icon: Wrench, title: "Service für Handwerker & Kleinunternehmen", desc: "Büroorganisation, Schriftverkehr und Unterstützung im Alltag selbstständiger Betriebe." },
   { icon: Building2, title: "Allgemeiner Büroservice", desc: "Schreiben, Drucken, Scannen, Dokumente vorbereiten und strukturieren." },

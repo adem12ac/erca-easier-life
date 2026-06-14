@@ -533,13 +533,13 @@ function Reviews() {
 }
 
 const FAQS = [
-  { q: "Welche Sprachen werden angeboten?", a: "Wir betreuen Sie auf Deutsch, Türkisch, Arabisch, Ukrainisch, Russisch und Albanisch – persönlich oder online." },
-  { q: "Was kostet die Unterstützung?", a: "Das Erstgespräch ist kostenlos. Danach erhalten Sie ein transparentes Angebot, abgestimmt auf Ihr Anliegen." },
-  { q: "Arbeiten Sie auch online?", a: "Ja. Viele Anliegen können wir vollständig digital per WhatsApp, E-Mail oder Videocall bearbeiten." },
-  { q: "Begleiten Sie zu Terminen?", a: "Auf Wunsch begleiten wir Sie zu Behörden- oder Beratungsterminen und unterstützen vor Ort." },
-  { q: "Bieten Sie Rechtsberatung an?", a: "Nein. ERCA Büro bietet ausschließlich organisatorische Unterstützung und Büroservice – keine Rechts-, Steuer- oder Schuldnerberatung." },
-  { q: "Wie schnell bekomme ich Hilfe?", a: "In der Regel melden wir uns innerhalb weniger Stunden zurück, oft schon am selben Tag." },
-  { q: "Welche Unterlagen benötige ich?", a: "Bringen Sie einfach mit, was Sie haben – wir prüfen alles gemeinsam und sagen Ihnen, was noch fehlt." },
+  { q: "Welche Sprachen sprechen Sie?", a: "Deutsch, Türkisch, Arabisch, Ukrainisch, Russisch und Albanisch." },
+  { q: "Was kostet die Hilfe?", a: "Das Erstgespräch ist kostenlos. Danach machen wir Ihnen ein faires Angebot." },
+  { q: "Geht das auch online?", a: "Ja. Per WhatsApp, E-Mail oder Videocall – ganz wie Sie möchten." },
+  { q: "Kommen Sie zu Terminen mit?", a: "Ja, auf Wunsch begleiten wir Sie zum Amt oder zur Beratung." },
+  { q: "Machen Sie Rechtsberatung?", a: "Nein. Wir machen keine Rechts-, Steuer- oder Schuldnerberatung. Wir helfen nur bei Formularen und im Büro." },
+  { q: "Wie schnell geht das?", a: "Meistens melden wir uns am selben Tag." },
+  { q: "Was muss ich mitbringen?", a: "Einfach alle Briefe und Unterlagen, die Sie haben. Wir prüfen den Rest." },
 ];
 
 function FAQ() {

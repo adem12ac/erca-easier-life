@@ -369,10 +369,10 @@ function Services() {
             Leistungen
           </motion.div>
           <motion.h2 variants={fadeUp} className="mt-4 text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
-            Alles, was Sie brauchen.<br className="hidden sm:block" /> An einem Ort.
+            Unsere Leistungen.
           </motion.h2>
           <motion.p variants={fadeUp} className="mt-4 text-base text-muted-foreground sm:text-lg">
-            Vom ersten Antrag bis zur kompletten Büroorganisation – wir kümmern uns.
+            Vom Antrag bis zur Büroarbeit – wir kümmern uns.
           </motion.p>
         </motion.div>
 

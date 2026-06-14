@@ -38,8 +38,8 @@ const NAV = [
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] } },
-};
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
+} as const;
 
 const stagger = {
   hidden: {},
@@ -51,7 +51,7 @@ function LandingPage() {
     <div id="start" className="min-h-screen bg-background text-foreground">
       <Nav />
       <Hero />
-      <Languages />
+      <LanguagesSection />
       <ProblemSolution />
       <Services />
       <Process />

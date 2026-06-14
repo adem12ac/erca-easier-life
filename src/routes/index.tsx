@@ -402,11 +402,11 @@ function Services() {
 }
 
 const STEPS = [
-  { n: "01", title: "Kontakt aufnehmen", desc: "Per WhatsApp, Telefon oder über das Formular – wir melden uns schnell zurück." },
-  { n: "02", title: "Kostenlose Erstberatung", desc: "Wir besprechen Ihr Anliegen unverbindlich und in Ihrer Sprache." },
-  { n: "03", title: "Unterlagen prüfen", desc: "Wir sichten Schreiben, Dokumente und finden den schnellsten Weg." },
-  { n: "04", title: "Bearbeitung übernehmen", desc: "Wir füllen Formulare aus, bereiten Anträge vor und kümmern uns." },
-  { n: "05", title: "Ergebnis erhalten", desc: "Klare Übersicht, fertige Unterlagen und ein gutes Gefühl." },
+  { n: "01", title: "Kontakt aufnehmen", desc: "Per WhatsApp, Telefon oder Formular." },
+  { n: "02", title: "Kostenloses Erstgespräch", desc: "Wir hören zu – in Ihrer Sprache." },
+  { n: "03", title: "Unterlagen prüfen", desc: "Wir sortieren und finden den schnellsten Weg." },
+  { n: "04", title: "Wir übernehmen", desc: "Formulare und Anträge erledigen wir für Sie." },
+  { n: "05", title: "Fertig!", desc: "Sie erhalten alle Unterlagen klar und sortiert." },
 ];
 
 function Process() {

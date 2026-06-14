@@ -62,6 +62,7 @@ function LandingPage() {
       <LegalNotice />
       <Footer />
       <FloatingWhatsApp />
+      <CookieBanner />
     </div>
   );
 }
@@ -159,8 +160,7 @@ function Hero() {
             <span className="bg-gradient-to-r from-brand to-success bg-clip-text text-transparent">Anträge richtig erledigen.</span>
           </motion.h1>
           <motion.p variants={fadeUp} className="mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
-            Mehrsprachige Unterstützung bei Anträgen, Behördenangelegenheiten,
-            Sozialleistungen und Büroorganisation – persönlich, schnell und verständlich.
+            Hilfe bei Anträgen, Briefen vom Amt, Bewerbungen und Büroarbeit – in Ihrer Sprache.
           </motion.p>
 
           <motion.ul variants={fadeUp} className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -182,6 +182,11 @@ function Hero() {
               Kostenloses Erstgespräch <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
             </a>
           </motion.div>
+
+          <motion.p variants={fadeUp} className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
+            <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-brand" />
+            <span><strong className="text-brand">Hinweis:</strong> Wir machen keine Rechts-, Steuer- oder Schuldnerberatung.</span>
+          </motion.p>
 
           <motion.div variants={fadeUp} className="mt-8 flex items-center gap-4 text-xs text-muted-foreground">
             <div className="flex -space-x-2">
@@ -248,7 +253,7 @@ function LanguagesSection() {
             Wir sprechen Ihre Sprache.
           </motion.h2>
           <motion.p variants={fadeUp} className="mt-4 text-base text-muted-foreground sm:text-lg">
-            Behördliche Schreiben, Anträge und Formulare erklären wir verständlich – in der Sprache, in der Sie sich wohlfühlen.
+            Wir erklären Briefe und Anträge in Ihrer Sprache.
           </motion.p>
         </motion.div>
 
@@ -302,7 +307,7 @@ function ProblemSolution() {
             Aus Stress wird Klarheit.
           </motion.h2>
           <motion.p variants={fadeUp} className="mt-4 text-base text-muted-foreground sm:text-lg">
-            Wir nehmen Ihnen den bürokratischen Aufwand ab – verständlich und zuverlässig.
+            Wir nehmen Ihnen den Papierkram ab.
           </motion.p>
         </motion.div>
 
@@ -345,15 +350,15 @@ function ProblemSolution() {
 }
 
 const SERVICES = [
-  { icon: FileText, title: "Behörden- und Formularservice", desc: "Anträge ausfüllen (Papier & online), Unterlagen prüfen, behördliche Schreiben verständlich erklären, Schriftverkehr, Terminvereinbarung und Vollmachten nach Ihren Vorgaben." },
-  { icon: Wallet, title: "Jobcenter- & Sozialleistungsservice", desc: "Bürgergeld, Wohngeld, Kindergeld, Kinderzuschlag, Bildung & Teilhabe: Antrag, Weiterbewilligung, Veränderungsmitteilungen und Vorbereitung Ihrer Termine." },
-  { icon: Globe2, title: "Ausländer- & Integrationsservice", desc: "Aufenthalt, Familiennachzug, Einbürgerung, Visum, Meldeangelegenheiten und Anmeldung zu Integrations- und Sprachkursen – Schreiben in Ihrer Sprache erklärt." },
-  { icon: Briefcase, title: "Bewerbungs- & Karriereservice", desc: "Lebenslauf, Anschreiben, Deckblatt und vollständige Bewerbungsmappe (auch als PDF). Optimierung, Online-Bewerbungen und Vorbereitung auf das Vorstellungsgespräch." },
-  { icon: LangIcon, title: "Übersetzungs- & Sprachservice", desc: "Mehrsprachig in Deutsch, Türkisch, Ukrainisch, Russisch, Albanisch und Arabisch. Vorbereitung von Übersetzungen und Vermittlung an vereidigte Übersetzer & Dolmetscher." },
-  { icon: ClipboardList, title: "Finanz- & Organisationsservice", desc: "Einnahmen- & Ausgabenübersichten, Haushaltspläne, Gläubiger- und Schuldenübersichten. Unterlagen für Ratenzahlungsanfragen und Beratungsstellen vorbereiten." },
-  { icon: Wrench, title: "Büroservice für Handwerk & Kleinunternehmen", desc: "Angebote, Rechnungen, Aufmaß, Materiallisten, Stundenzettel, Baustellendoku, Mahnungen, Nachtragsangebote und digitale Ablage – wir halten Ihnen den Rücken frei." },
-  { icon: Building2, title: "Allgemeiner Büroservice", desc: "Schriftverkehr, E-Mails, Dokumentenerstellung, Scannen & Archivieren, Aktensortierung, Terminverwaltung und telefonische Unterstützung – zuverlässig und diskret." },
-  { icon: Network, title: "Netzwerk- & Vermittlungsservice", desc: "Wir bereiten alles vor und vermitteln gezielt an Steuerberater, Anwälte, Schuldnerberatung, Notare, Übersetzer, Versicherungs- und Immobilienprofis sowie Fachbetriebe." },
+  { icon: FileText, title: "Behörden & Formulare", desc: "Anträge ausfüllen, Briefe vom Amt erklären, Termine vorbereiten." },
+  { icon: Wallet, title: "Jobcenter & Soziales", desc: "Bürgergeld, Wohngeld, Kindergeld und mehr – Antrag und Weiterbewilligung." },
+  { icon: Globe2, title: "Aufenthalt & Integration", desc: "Aufenthalt, Familiennachzug, Einbürgerung und Sprachkurse." },
+  { icon: Briefcase, title: "Bewerbung & Karriere", desc: "Lebenslauf, Anschreiben und komplette Bewerbungsmappe als PDF." },
+  { icon: LangIcon, title: "Übersetzung & Sprache", desc: "Mehrsprachig: Deutsch, Türkisch, Arabisch, Ukrainisch, Russisch, Albanisch." },
+  { icon: ClipboardList, title: "Finanzen ordnen", desc: "Einnahmen, Ausgaben und Schulden übersichtlich sortiert." },
+  { icon: Wrench, title: "Handwerk & Kleinbetrieb", desc: "Angebote, Rechnungen, Stundenzettel und digitale Ablage." },
+  { icon: Building2, title: "Allgemeiner Büroservice", desc: "Schreiben, Scannen, Archivieren, Termine – diskret und zuverlässig." },
+  { icon: Network, title: "Netzwerk & Vermittlung", desc: "Wir vermitteln an Steuerberater, Anwälte, Notare und Fachbetriebe." },
 ];
 
 function Services() {
@@ -365,10 +370,10 @@ function Services() {
             Leistungen
           </motion.div>
           <motion.h2 variants={fadeUp} className="mt-4 text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
-            Alles, was Sie brauchen.<br className="hidden sm:block" /> An einem Ort.
+            Unsere Leistungen.
           </motion.h2>
           <motion.p variants={fadeUp} className="mt-4 text-base text-muted-foreground sm:text-lg">
-            Vom ersten Antrag bis zur kompletten Büroorganisation – wir kümmern uns.
+            Vom Antrag bis zur Büroarbeit – wir kümmern uns.
           </motion.p>
         </motion.div>
 
@@ -398,11 +403,11 @@ function Services() {
 }
 
 const STEPS = [
-  { n: "01", title: "Kontakt aufnehmen", desc: "Per WhatsApp, Telefon oder über das Formular – wir melden uns schnell zurück." },
-  { n: "02", title: "Kostenlose Erstberatung", desc: "Wir besprechen Ihr Anliegen unverbindlich und in Ihrer Sprache." },
-  { n: "03", title: "Unterlagen prüfen", desc: "Wir sichten Schreiben, Dokumente und finden den schnellsten Weg." },
-  { n: "04", title: "Bearbeitung übernehmen", desc: "Wir füllen Formulare aus, bereiten Anträge vor und kümmern uns." },
-  { n: "05", title: "Ergebnis erhalten", desc: "Klare Übersicht, fertige Unterlagen und ein gutes Gefühl." },
+  { n: "01", title: "Kontakt aufnehmen", desc: "Per WhatsApp, Telefon oder Formular." },
+  { n: "02", title: "Kostenloses Erstgespräch", desc: "Wir hören zu – in Ihrer Sprache." },
+  { n: "03", title: "Unterlagen prüfen", desc: "Wir sortieren und finden den schnellsten Weg." },
+  { n: "04", title: "Wir übernehmen", desc: "Formulare und Anträge erledigen wir für Sie." },
+  { n: "05", title: "Fertig!", desc: "Sie erhalten alle Unterlagen klar und sortiert." },
 ];
 
 function Process() {
@@ -529,13 +534,13 @@ function Reviews() {
 }
 
 const FAQS = [
-  { q: "Welche Sprachen werden angeboten?", a: "Wir betreuen Sie auf Deutsch, Türkisch, Arabisch, Ukrainisch, Russisch und Albanisch – persönlich oder online." },
-  { q: "Was kostet die Unterstützung?", a: "Das Erstgespräch ist kostenlos. Danach erhalten Sie ein transparentes Angebot, abgestimmt auf Ihr Anliegen." },
-  { q: "Arbeiten Sie auch online?", a: "Ja. Viele Anliegen können wir vollständig digital per WhatsApp, E-Mail oder Videocall bearbeiten." },
-  { q: "Begleiten Sie zu Terminen?", a: "Auf Wunsch begleiten wir Sie zu Behörden- oder Beratungsterminen und unterstützen vor Ort." },
-  { q: "Bieten Sie Rechtsberatung an?", a: "Nein. ERCA Büro bietet ausschließlich organisatorische Unterstützung und Büroservice – keine Rechts-, Steuer- oder Schuldnerberatung." },
-  { q: "Wie schnell bekomme ich Hilfe?", a: "In der Regel melden wir uns innerhalb weniger Stunden zurück, oft schon am selben Tag." },
-  { q: "Welche Unterlagen benötige ich?", a: "Bringen Sie einfach mit, was Sie haben – wir prüfen alles gemeinsam und sagen Ihnen, was noch fehlt." },
+  { q: "Welche Sprachen sprechen Sie?", a: "Deutsch, Türkisch, Arabisch, Ukrainisch, Russisch und Albanisch." },
+  { q: "Was kostet die Hilfe?", a: "Das Erstgespräch ist kostenlos. Danach machen wir Ihnen ein faires Angebot." },
+  { q: "Geht das auch online?", a: "Ja. Per WhatsApp, E-Mail oder Videocall – ganz wie Sie möchten." },
+  { q: "Kommen Sie zu Terminen mit?", a: "Ja, auf Wunsch begleiten wir Sie zum Amt oder zur Beratung." },
+  { q: "Machen Sie Rechtsberatung?", a: "Nein. Wir machen keine Rechts-, Steuer- oder Schuldnerberatung. Wir helfen nur bei Formularen und im Büro." },
+  { q: "Wie schnell geht das?", a: "Meistens melden wir uns am selben Tag." },
+  { q: "Was muss ich mitbringen?", a: "Einfach alle Briefe und Unterlagen, die Sie haben. Wir prüfen den Rest." },
 ];
 
 function FAQ() {
@@ -583,10 +588,10 @@ function Contact() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="mx-auto max-w-2xl text-center">
           <motion.h2 variants={fadeUp} className="text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
-            Lassen Sie uns Ihre Bürokratie erledigen.
+            Schreiben Sie uns.
           </motion.h2>
           <motion.p variants={fadeUp} className="mt-4 text-base text-muted-foreground sm:text-lg">
-            Schreiben Sie uns – wir melden uns schnell und unverbindlich zurück.
+            Wir melden uns schnell zurück.
           </motion.p>
         </motion.div>
 
@@ -649,8 +654,8 @@ function Contact() {
             onSubmit={(e) => { e.preventDefault(); setSent(true); }}
             className="rounded-3xl border border-border bg-white p-7 shadow-soft lg:col-span-3 lg:p-9"
           >
-            <h3 className="text-xl font-bold text-brand">Kostenlose Anfrage</h3>
-            <p className="mt-1.5 text-sm text-muted-foreground">Wir melden uns innerhalb weniger Stunden bei Ihnen.</p>
+            <h3 className="text-xl font-bold text-brand">Kostenlos anfragen</h3>
+            <p className="mt-1.5 text-sm text-muted-foreground">Antwort meist am selben Tag.</p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <Field label="Name" name="name" required />
@@ -750,5 +755,49 @@ function FloatingWhatsApp() {
         <span className="absolute inset-0 animate-ping rounded-full bg-success" />
       </span>
     </motion.a>
+  );
+}
+
+function CookieBanner() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    try {
+      if (!localStorage.getItem("erca-cookies")) setVisible(true);
+    } catch { setVisible(true); }
+  }, []);
+  const choose = (val: "accepted" | "declined") => {
+    try { localStorage.setItem("erca-cookies", val); } catch { /* ignore */ }
+    setVisible(false);
+  };
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          initial={{ y: 120, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 120, opacity: 0 }}
+          transition={{ type: "spring", damping: 22, stiffness: 220 }}
+          className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-3xl rounded-3xl border border-border bg-white/95 p-4 shadow-lift backdrop-blur sm:inset-x-5 sm:bottom-5 sm:p-5"
+          role="dialog" aria-label="Cookie-Hinweis"
+        >
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+            <div className="flex items-start gap-3">
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand">
+                <ShieldCheck className="h-5 w-5" />
+              </div>
+              <div className="min-w-0 text-sm leading-relaxed text-foreground/80">
+                <strong className="text-brand">Cookies.</strong> Wir nutzen nur Cookies, die für die Seite nötig sind. Sie können selbst entscheiden.
+              </div>
+            </div>
+            <div className="flex shrink-0 gap-2 sm:ml-auto">
+              <button onClick={() => choose("declined")} className="flex-1 rounded-full border border-border bg-white px-4 py-2.5 text-sm font-semibold text-foreground/80 transition hover:bg-brand-soft sm:flex-none">
+                Ablehnen
+              </button>
+              <button onClick={() => choose("accepted")} className="flex-1 rounded-full bg-success px-5 py-2.5 text-sm font-semibold text-success-foreground btn-glow transition hover:scale-[1.03] sm:flex-none">
+                Akzeptieren
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

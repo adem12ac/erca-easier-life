@@ -159,8 +159,7 @@ function Hero() {
             <span className="bg-gradient-to-r from-brand to-success bg-clip-text text-transparent">Anträge richtig erledigen.</span>
           </motion.h1>
           <motion.p variants={fadeUp} className="mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
-            Mehrsprachige Unterstützung bei Anträgen, Behördenangelegenheiten,
-            Sozialleistungen und Büroorganisation – persönlich, schnell und verständlich.
+            Hilfe bei Anträgen, Briefen vom Amt, Bewerbungen und Büroarbeit – in Ihrer Sprache.
           </motion.p>
 
           <motion.ul variants={fadeUp} className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -182,6 +181,11 @@ function Hero() {
               Kostenloses Erstgespräch <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
             </a>
           </motion.div>
+
+          <motion.p variants={fadeUp} className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
+            <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-brand" />
+            <span><strong className="text-brand">Hinweis:</strong> Wir machen keine Rechts-, Steuer- oder Schuldnerberatung.</span>
+          </motion.p>
 
           <motion.div variants={fadeUp} className="mt-8 flex items-center gap-4 text-xs text-muted-foreground">
             <div className="flex -space-x-2">
@@ -248,7 +252,7 @@ function LanguagesSection() {
             Wir sprechen Ihre Sprache.
           </motion.h2>
           <motion.p variants={fadeUp} className="mt-4 text-base text-muted-foreground sm:text-lg">
-            Behördliche Schreiben, Anträge und Formulare erklären wir verständlich – in der Sprache, in der Sie sich wohlfühlen.
+            Wir erklären Briefe und Anträge in Ihrer Sprache.
           </motion.p>
         </motion.div>
 
@@ -302,7 +306,7 @@ function ProblemSolution() {
             Aus Stress wird Klarheit.
           </motion.h2>
           <motion.p variants={fadeUp} className="mt-4 text-base text-muted-foreground sm:text-lg">
-            Wir nehmen Ihnen den bürokratischen Aufwand ab – verständlich und zuverlässig.
+            Wir nehmen Ihnen den Papierkram ab.
           </motion.p>
         </motion.div>
 
@@ -345,15 +349,15 @@ function ProblemSolution() {
 }
 
 const SERVICES = [
-  { icon: FileText, title: "Behörden- und Formularservice", desc: "Anträge ausfüllen (Papier & online), Unterlagen prüfen, behördliche Schreiben verständlich erklären, Schriftverkehr, Terminvereinbarung und Vollmachten nach Ihren Vorgaben." },
-  { icon: Wallet, title: "Jobcenter- & Sozialleistungsservice", desc: "Bürgergeld, Wohngeld, Kindergeld, Kinderzuschlag, Bildung & Teilhabe: Antrag, Weiterbewilligung, Veränderungsmitteilungen und Vorbereitung Ihrer Termine." },
-  { icon: Globe2, title: "Ausländer- & Integrationsservice", desc: "Aufenthalt, Familiennachzug, Einbürgerung, Visum, Meldeangelegenheiten und Anmeldung zu Integrations- und Sprachkursen – Schreiben in Ihrer Sprache erklärt." },
-  { icon: Briefcase, title: "Bewerbungs- & Karriereservice", desc: "Lebenslauf, Anschreiben, Deckblatt und vollständige Bewerbungsmappe (auch als PDF). Optimierung, Online-Bewerbungen und Vorbereitung auf das Vorstellungsgespräch." },
-  { icon: LangIcon, title: "Übersetzungs- & Sprachservice", desc: "Mehrsprachig in Deutsch, Türkisch, Ukrainisch, Russisch, Albanisch und Arabisch. Vorbereitung von Übersetzungen und Vermittlung an vereidigte Übersetzer & Dolmetscher." },
-  { icon: ClipboardList, title: "Finanz- & Organisationsservice", desc: "Einnahmen- & Ausgabenübersichten, Haushaltspläne, Gläubiger- und Schuldenübersichten. Unterlagen für Ratenzahlungsanfragen und Beratungsstellen vorbereiten." },
-  { icon: Wrench, title: "Büroservice für Handwerk & Kleinunternehmen", desc: "Angebote, Rechnungen, Aufmaß, Materiallisten, Stundenzettel, Baustellendoku, Mahnungen, Nachtragsangebote und digitale Ablage – wir halten Ihnen den Rücken frei." },
-  { icon: Building2, title: "Allgemeiner Büroservice", desc: "Schriftverkehr, E-Mails, Dokumentenerstellung, Scannen & Archivieren, Aktensortierung, Terminverwaltung und telefonische Unterstützung – zuverlässig und diskret." },
-  { icon: Network, title: "Netzwerk- & Vermittlungsservice", desc: "Wir bereiten alles vor und vermitteln gezielt an Steuerberater, Anwälte, Schuldnerberatung, Notare, Übersetzer, Versicherungs- und Immobilienprofis sowie Fachbetriebe." },
+  { icon: FileText, title: "Behörden & Formulare", desc: "Anträge ausfüllen, Briefe vom Amt erklären, Termine vorbereiten." },
+  { icon: Wallet, title: "Jobcenter & Soziales", desc: "Bürgergeld, Wohngeld, Kindergeld und mehr – Antrag und Weiterbewilligung." },
+  { icon: Globe2, title: "Aufenthalt & Integration", desc: "Aufenthalt, Familiennachzug, Einbürgerung und Sprachkurse." },
+  { icon: Briefcase, title: "Bewerbung & Karriere", desc: "Lebenslauf, Anschreiben und komplette Bewerbungsmappe als PDF." },
+  { icon: LangIcon, title: "Übersetzung & Sprache", desc: "Mehrsprachig: Deutsch, Türkisch, Arabisch, Ukrainisch, Russisch, Albanisch." },
+  { icon: ClipboardList, title: "Finanzen ordnen", desc: "Einnahmen, Ausgaben und Schulden übersichtlich sortiert." },
+  { icon: Wrench, title: "Handwerk & Kleinbetrieb", desc: "Angebote, Rechnungen, Stundenzettel und digitale Ablage." },
+  { icon: Building2, title: "Allgemeiner Büroservice", desc: "Schreiben, Scannen, Archivieren, Termine – diskret und zuverlässig." },
+  { icon: Network, title: "Netzwerk & Vermittlung", desc: "Wir vermitteln an Steuerberater, Anwälte, Notare und Fachbetriebe." },
 ];
 
 function Services() {

@@ -7,6 +7,7 @@ import {
   ClipboardList, Network, Check, ArrowRight, Sparkles, ShieldCheck, Star,
 } from "lucide-react";
 import heroImg from "@/assets/hero.jpg";
+import logoAsset from "@/assets/erca-logo.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -81,13 +82,7 @@ function Nav() {
     <header className={`fixed inset-x-0 top-0 z-50 transition-all ${scrolled ? "glass-nav" : "bg-transparent"}`}>
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3.5 lg:px-8">
         <a href="#start" className="flex items-center gap-2.5">
-          <div className="brand-gradient grid h-9 w-9 place-items-center rounded-xl text-white shadow-lift">
-            <Sparkles className="h-4.5 w-4.5" strokeWidth={2.5} />
-          </div>
-          <div className="leading-tight">
-            <div className="text-base font-extrabold tracking-tight text-brand">ERCA Büro</div>
-            <div className="text-[10px] font-medium text-muted-foreground">Bürokratie. Einfach erledigt.</div>
-          </div>
+          <img src={logoAsset.url} alt="ERCA Büro Logo" className="h-10 w-auto sm:h-12" />
         </a>
 
         <nav className="hidden items-center gap-1 lg:flex">
@@ -722,9 +717,9 @@ function Footer() {
   return (
     <footer className="bg-brand py-10 text-brand-foreground">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 text-center sm:flex-row sm:text-left lg:px-8">
-        <div className="flex items-center gap-2.5">
-          <div className="brand-gradient grid h-9 w-9 place-items-center rounded-xl">
-            <Sparkles className="h-4 w-4" />
+        <div className="flex items-center gap-3">
+          <div className="grid h-12 w-12 place-items-center rounded-xl bg-white p-1.5">
+            <img src={logoAsset.url} alt="ERCA Büro Logo" className="h-full w-full object-contain" />
           </div>
           <div className="leading-tight">
             <div className="text-sm font-bold">ERCA Büro</div>

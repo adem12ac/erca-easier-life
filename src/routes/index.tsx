@@ -7,6 +7,7 @@ import {
   ClipboardList, Network, Check, ArrowRight, Sparkles, ShieldCheck, Star,
 } from "lucide-react";
 import heroImg from "@/assets/hero.jpg";
+import logoAsset from "@/assets/erca-logo.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({

@@ -122,3 +122,16 @@
 @utility btn-glow {
   box-shadow: 0 8px 30px -8px color-mix(in oklab, var(--success) 70%, transparent);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* RTL: flip horizontal margins on shifted cards in process list */
+[dir="rtl"] .rtl\:rotate-180 { transform: rotate(180deg); }
+

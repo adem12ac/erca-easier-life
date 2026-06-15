@@ -11,6 +11,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { I18nProvider } from "../lib/i18n";
+import logoAsset from "../assets/erca-logo.png.asset.json";
 
 function NotFoundComponent() {
   return (
@@ -77,20 +79,24 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { name: "theme-color", content: "#0D2A52" },
+      { title: "ERCA Büro – Büroservice & Behördenhilfe in Essen" },
+      { name: "description", content: "Mehrsprachige Unterstützung bei Anträgen, Behördenangelegenheiten, Sozialleistungen und Bewerbungen. Persönlich und zuverlässig in Essen." },
+      { name: "author", content: "ERCA Büro" },
+      { property: "og:site_name", content: "ERCA Büro" },
+      { property: "og:title", content: "ERCA Büro – Bürokratie einfach erledigt" },
+      { property: "og:description", content: "Mehrsprachige Hilfe bei Anträgen, Behörden und Bewerbungen in Essen." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { property: "og:image", content: logoAsset.url },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "ERCA Büro – Bürokratie einfach erledigt" },
+      { name: "twitter:description", content: "Mehrsprachige Hilfe bei Anträgen, Behörden und Bewerbungen." },
+      { name: "twitter:image", content: logoAsset.url },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: logoAsset.url, type: "image/png" },
+      { rel: "apple-touch-icon", href: logoAsset.url },
     ],
   }),
   shellComponent: RootShell,
@@ -118,8 +124,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <I18nProvider>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+      </I18nProvider>
     </QueryClientProvider>
   );
 }

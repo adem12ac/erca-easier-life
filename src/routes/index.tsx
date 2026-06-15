@@ -1,24 +1,27 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
 import {
   Phone, MessageCircle, Mail, MapPin, Clock, ChevronDown, Menu, X,
   FileText, Building2, Globe2, Briefcase, Languages as LangIcon, Wallet, Wrench,
-  ClipboardList, Network, Check, ArrowRight, Sparkles, ShieldCheck, Star,
+  ClipboardList, Network, Check, ArrowRight, ShieldCheck, Star,
 } from "lucide-react";
 import heroImg from "@/assets/hero.jpg";
 import logoAsset from "@/assets/erca-logo.png.asset.json";
+import { useI18n, LANGUAGES, type Lang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "ERCA Büro – Büroservice, Behördenhilfe & Sozialleistungsservice in Essen" },
-      { name: "description", content: "Mehrsprachige Unterstützung bei Anträgen, Behördenangelegenheiten, Sozialleistungen, Bewerbungen und Büroorganisation. Persönlich, schnell und zuverlässig in Essen." },
+      { name: "description", content: "Mehrsprachige Unterstützung bei Anträgen, Behörden, Sozialleistungen und Bewerbungen. Persönlich, schnell und zuverlässig in Essen." },
       { property: "og:title", content: "ERCA Büro – Bürokratie einfach erledigt" },
-      { property: "og:description", content: "Mehrsprachige Unterstützung bei Anträgen, Behörden und Bewerbungen. Persönlich, schnell und zuverlässig." },
-      { property: "og:image", content: heroImg },
+      { property: "og:description", content: "Mehrsprachige Hilfe bei Anträgen, Behörden und Bewerbungen in Essen." },
+      { property: "og:image", content: logoAsset.url },
+      { property: "og:url", content: "/" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "/" }],
   }),
   component: LandingPage,
 });
@@ -27,25 +30,6 @@ const WHATSAPP = "https://wa.me/4915212971388";
 const PHONE = "+4915212971388";
 const PHONE_DISPLAY = "+49 1521 2971388";
 const EMAIL = "kontakt@erca-buero.de";
-
-const NAV = [
-  { id: "start", label: "Start" },
-  { id: "leistungen", label: "Leistungen" },
-  { id: "ablauf", label: "Ablauf" },
-  { id: "bewertungen", label: "Bewertungen" },
-  { id: "faq", label: "FAQ" },
-  { id: "kontakt", label: "Kontakt" },
-];
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
-} as const;
-
-const stagger = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
-};
 
 function LandingPage() {
   return (
@@ -68,7 +52,86 @@ function LandingPage() {
   );
 }
 
+function useNavItems() {
+  const { t } = useI18n();
+  return [
+    { id: "start", label: t("nav.start") },
+    { id: "leistungen", label: t("nav.services") },
+    { id: "ablauf", label: t("nav.process") },
+    { id: "bewertungen", label: t("nav.reviews") },
+    { id: "faq", label: t("nav.faq") },
+    { id: "kontakt", label: t("nav.contact") },
+  ];
+}
+
+// Subtle reveal: content stays visible (opacity 1), only a light translate.
+const reveal = {
+  hidden: { opacity: 1, y: 12 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" as const } },
+} as const;
+
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.05 } },
+};
+
+function LanguageSwitcher({ inverted = false }: { inverted?: boolean }) {
+  const { lang, setLang, t } = useI18n();
+  const [open, setOpen] = useState(false);
+  const current = LANGUAGES.find((l) => l.code === lang) ?? LANGUAGES[0];
+
+  useEffect(() => {
+    if (!open) return;
+    const onClick = () => setOpen(false);
+    window.addEventListener("click", onClick);
+    return () => window.removeEventListener("click", onClick);
+  }, [open]);
+
+  return (
+    <div className="relative" onClick={(e) => e.stopPropagation()}>
+      <button
+        onClick={() => setOpen((v) => !v)}
+        aria-label={t("nav.lang")}
+        className={`inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium transition ${
+          inverted
+            ? "text-white/90 hover:bg-white/10"
+            : "text-foreground/70 hover:bg-brand-soft hover:text-brand"
+        }`}
+      >
+        <span className="text-base leading-none">{current.flag}</span>
+        <span className="hidden sm:inline">{current.code.toUpperCase()}</span>
+        <ChevronDown className="h-3.5 w-3.5" />
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.ul
+            initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.15 }}
+            className="absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-2xl border border-border bg-white p-1 shadow-lift"
+          >
+            {LANGUAGES.map((l) => (
+              <li key={l.code}>
+                <button
+                  onClick={() => { setLang(l.code as Lang); setOpen(false); }}
+                  className={`flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left text-sm transition hover:bg-brand-soft ${
+                    l.code === lang ? "bg-brand-soft font-semibold text-brand" : "text-foreground/80"
+                  }`}
+                >
+                  <span className="text-base">{l.flag}</span>
+                  <span>{l.native}</span>
+                </button>
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 function Nav() {
+  const { t } = useI18n();
+  const NAV = useNavItems();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -79,32 +142,43 @@ function Nav() {
   }, []);
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 transition-all ${scrolled ? "glass-nav" : "bg-transparent"}`}>
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3.5 lg:px-8">
-        <a href="#start" className="flex items-center gap-2.5">
-          <img src={logoAsset.url} alt="ERCA Büro Logo" className="h-10 w-auto sm:h-12" />
+    <header className={`fixed inset-x-0 top-0 z-50 transition-all ${scrolled ? "glass-nav" : "bg-white/60 backdrop-blur"}`}>
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 lg:px-8">
+        <a href="#start" className="flex items-center gap-3 shrink-0">
+          <img
+            src={logoAsset.url}
+            alt="ERCA Büro Logo"
+            className="h-14 w-auto sm:h-16"
+            width={140}
+            height={64}
+            style={{ imageRendering: "auto" }}
+          />
         </a>
 
         <nav className="hidden items-center gap-1 lg:flex">
           {NAV.map((n) => (
-            <a key={n.id} href={`#${n.id}`} className="rounded-full px-4 py-2 text-sm font-medium text-foreground/70 transition hover:bg-brand-soft hover:text-brand">
+            <a key={n.id} href={`#${n.id}`} className="rounded-full px-3.5 py-2 text-sm font-medium text-foreground/70 transition hover:bg-brand-soft hover:text-brand">
               {n.label}
             </a>
           ))}
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
-          <a href={`tel:${PHONE}`} className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-brand transition hover:bg-brand-soft">
-            <Phone className="h-4 w-4" /> Anrufen
+          <LanguageSwitcher />
+          <a href={`tel:${PHONE}`} className="inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-sm font-semibold text-brand transition hover:bg-brand-soft">
+            <Phone className="h-4 w-4" /> {t("nav.call")}
           </a>
-          <a href={WHATSAPP} target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-full bg-success px-5 py-2.5 text-sm font-semibold text-success-foreground btn-glow transition hover:scale-[1.03]">
+          <a href={WHATSAPP} target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-full bg-success px-4 py-2.5 text-sm font-semibold text-success-foreground btn-glow transition hover:scale-[1.03]">
             <MessageCircle className="h-4 w-4" /> WhatsApp
           </a>
         </div>
 
-        <button onClick={() => setOpen((v) => !v)} className="grid h-10 w-10 place-items-center rounded-xl border border-border bg-white lg:hidden" aria-label="Menü">
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center gap-1.5 lg:hidden">
+          <LanguageSwitcher />
+          <button onClick={() => setOpen((v) => !v)} className="grid h-11 w-11 place-items-center rounded-xl border border-border bg-white" aria-label="Menü" aria-expanded={open}>
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -115,15 +189,15 @@ function Nav() {
           >
             <div className="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-4">
               {NAV.map((n) => (
-                <a key={n.id} href={`#${n.id}`} onClick={() => setOpen(false)} className="rounded-xl px-4 py-3 text-sm font-medium text-foreground/80 hover:bg-brand-soft">
+                <a key={n.id} href={`#${n.id}`} onClick={() => setOpen(false)} className="rounded-xl px-4 py-3.5 text-base font-medium text-foreground/80 hover:bg-brand-soft">
                   {n.label}
                 </a>
               ))}
               <div className="mt-2 grid grid-cols-2 gap-2">
-                <a href={`tel:${PHONE}`} className="inline-flex items-center justify-center gap-2 rounded-full border border-brand/20 px-4 py-3 text-sm font-semibold text-brand">
-                  <Phone className="h-4 w-4" /> Anrufen
+                <a href={`tel:${PHONE}`} className="inline-flex items-center justify-center gap-2 rounded-full border border-brand/20 px-4 py-3.5 text-sm font-semibold text-brand">
+                  <Phone className="h-4 w-4" /> {t("nav.call")}
                 </a>
-                <a href={WHATSAPP} target="_blank" rel="noopener" className="inline-flex items-center justify-center gap-2 rounded-full bg-success px-4 py-3 text-sm font-semibold text-success-foreground">
+                <a href={WHATSAPP} target="_blank" rel="noopener" className="inline-flex items-center justify-center gap-2 rounded-full bg-success px-4 py-3.5 text-sm font-semibold text-success-foreground">
                   <MessageCircle className="h-4 w-4" /> WhatsApp
                 </a>
               </div>
@@ -136,139 +210,111 @@ function Nav() {
 }
 
 function Hero() {
-  const trust = [
-    "Mehrsprachige Betreuung",
-    "Persönlicher Ansprechpartner",
-    "Schnell & zuverlässig",
-    "Vor Ort & Online",
-  ];
+  const { t } = useI18n();
+  const trust = [t("hero.t1"), t("hero.t2"), t("hero.t3"), t("hero.t4")];
   return (
-    <section className="hero-bg relative overflow-hidden pt-28 lg:pt-36">
-      <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 pb-20 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:pb-28">
-        <motion.div initial="hidden" animate="show" variants={stagger}>
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full border border-brand/15 bg-white/70 px-3.5 py-1.5 text-xs font-semibold text-brand backdrop-blur">
+    <section className="hero-bg relative overflow-hidden pt-28 lg:pt-32">
+      <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 pb-16 lg:grid-cols-2 lg:gap-14 lg:px-8 lg:pb-24">
+        <div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-brand/15 bg-white/70 px-3.5 py-1.5 text-xs font-semibold text-brand backdrop-blur">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
-            Büroservice & Behördenhilfe in Essen
-          </motion.div>
-          <motion.h1 variants={fadeUp} className="mt-5 text-4xl font-extrabold leading-[1.05] tracking-tight text-brand sm:text-5xl lg:text-6xl">
-            Deutschland verstehen.<br />
-            <span className="bg-gradient-to-r from-brand to-success bg-clip-text text-transparent">Anträge richtig erledigen.</span>
-          </motion.h1>
-          <motion.p variants={fadeUp} className="mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
-            Hilfe bei Anträgen, Briefen vom Amt, Bewerbungen und Büroarbeit – in Ihrer Sprache.
-          </motion.p>
+            {t("hero.badge")}
+          </div>
+          <h1 className="mt-5 text-4xl font-extrabold leading-[1.05] tracking-tight text-brand sm:text-5xl lg:text-6xl">
+            {t("hero.title1")}<br />
+            <span className="bg-gradient-to-r from-brand to-success bg-clip-text text-transparent">{t("hero.title2")}</span>
+          </h1>
+          <p className="mt-5 max-w-xl text-base text-foreground/75 sm:text-lg">
+            {t("hero.sub")}
+          </p>
 
-          <motion.ul variants={fadeUp} className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
-            {trust.map((t) => (
-              <li key={t} className="flex items-center gap-2 text-sm font-medium text-foreground/80">
+          <ul className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
+            {trust.map((tr) => (
+              <li key={tr} className="flex items-center gap-2 text-sm font-medium text-foreground/80">
                 <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-success/15 text-success">
                   <Check className="h-3.5 w-3.5" strokeWidth={3} />
                 </span>
-                {t}
+                {tr}
               </li>
             ))}
-          </motion.ul>
+          </ul>
 
-          <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <a href={WHATSAPP} target="_blank" rel="noopener" className="group inline-flex items-center justify-center gap-2 rounded-full bg-success px-6 py-3.5 text-sm font-semibold text-success-foreground btn-glow transition hover:scale-[1.03]">
-              <MessageCircle className="h-4.5 w-4.5" /> WhatsApp Kontakt
+              <MessageCircle className="h-4 w-4" /> {t("hero.cta1")}
             </a>
             <a href="#kontakt" className="group inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground shadow-lift transition hover:scale-[1.03]">
-              Kostenloses Erstgespräch <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+              {t("hero.cta2")} <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5 rtl:rotate-180" />
             </a>
-          </motion.div>
-
-          <motion.p variants={fadeUp} className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
-            <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-brand" />
-            <span><strong className="text-brand">Hinweis:</strong> Wir machen keine Rechts-, Steuer- oder Schuldnerberatung.</span>
-          </motion.p>
-
-          <motion.div variants={fadeUp} className="mt-8 flex items-center gap-4 text-xs text-muted-foreground">
-            <div className="flex -space-x-2">
-              {["bg-success", "bg-brand", "bg-amber-400", "bg-rose-400"].map((c, i) => (
-                <div key={i} className={`h-7 w-7 rounded-full border-2 border-white ${c}`} />
-              ))}
-            </div>
-            <div className="flex items-center gap-1">
-              {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />)}
-              <span className="ml-1 font-semibold text-foreground">Zufriedene Mandanten in Essen</span>
-            </div>
-          </motion.div>
-        </motion.div>
-
-        <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, ease: "easeOut" }} className="relative">
-          <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-tr from-success/20 via-brand/10 to-transparent blur-2xl" />
-          <div className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/40 p-2 shadow-lift backdrop-blur">
-            <img src={heroImg} alt="ERCA Büro Beratungssituation mit Familie" width={1536} height={1280} className="h-full w-full rounded-[1.25rem] object-cover" />
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
-            className="absolute -bottom-4 -left-4 hidden items-center gap-3 rounded-2xl bg-white p-3.5 shadow-lift sm:flex"
-          >
-            <div className="grid h-10 w-10 place-items-center rounded-xl bg-success-soft text-success">
-              <ShieldCheck className="h-5 w-5" />
-            </div>
-            <div className="leading-tight">
-              <div className="text-sm font-bold text-brand">Diskret & Vertraulich</div>
-              <div className="text-xs text-muted-foreground">Persönlich begleitet</div>
-            </div>
-          </motion.div>
+          <p className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
+            <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-brand" />
+            <span>{t("hero.disclaimer")}</span>
+          </p>
+        </div>
 
-          <motion.div
-            animate={{ y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -right-3 top-6 hidden items-center gap-2 rounded-full bg-brand px-4 py-2 text-xs font-semibold text-brand-foreground shadow-lift sm:flex"
-          >
-            <LangIcon className="h-3.5 w-3.5" /> 6 Sprachen
-          </motion.div>
-        </motion.div>
+        <div className="relative">
+          <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-tr from-success/20 via-brand/10 to-transparent blur-2xl" />
+          <div className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/40 p-2 shadow-lift backdrop-blur">
+            <img src={heroImg} alt="ERCA Büro Beratungssituation" width={1536} height={1280} className="h-full w-full rounded-[1.25rem] object-cover" />
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
-const LANGS = [
-  { flag: "🇩🇪", name: "Deutsch" },
-  { flag: "🇹🇷", name: "Türkisch" },
-  { flag: "🇸🇦", name: "Arabisch" },
-  { flag: "🇺🇦", name: "Ukrainisch" },
-  { flag: "🇷🇺", name: "Russisch" },
-  { flag: "🇦🇱", name: "Albanisch" },
-];
+function SectionReveal({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const reduce = useReducedMotion();
+  if (reduce) return <div className={className}>{children}</div>;
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.05, margin: "0px 0px -10% 0px" }}
+      variants={stagger}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 function LanguagesSection() {
+  const { t } = useI18n();
   return (
-    <section className="border-y border-border bg-white py-20 lg:py-28">
+    <section className="border-y border-border bg-white py-14 lg:py-20">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true, margin: "-100px" }} variants={stagger} className="mx-auto max-w-2xl text-center">
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold text-brand">
-            <LangIcon className="h-3.5 w-3.5" /> Mehrsprachig
+        <SectionReveal className="mx-auto max-w-2xl text-center">
+          <motion.div variants={reveal} className="inline-flex items-center gap-2 rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold text-brand">
+            <LangIcon className="h-3.5 w-3.5" /> {t("nav.lang")}
           </motion.div>
-          <motion.h2 variants={fadeUp} className="mt-4 text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
-            Wir sprechen Ihre Sprache.
+          <motion.h2 variants={reveal} className="mt-4 text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
+            {t("lang.title")}
           </motion.h2>
-          <motion.p variants={fadeUp} className="mt-4 text-base text-muted-foreground sm:text-lg">
-            Wir erklären Briefe und Anträge in Ihrer Sprache.
+          <motion.p variants={reveal} className="mt-3 text-base text-foreground/70 sm:text-lg">
+            {t("lang.sub")}
           </motion.p>
-        </motion.div>
+        </SectionReveal>
 
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-          {LANGS.map((l) => (
+        <SectionReveal className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          {LANGUAGES.map((l) => (
             <motion.div
-              key={l.name}
-              variants={fadeUp}
+              key={l.code}
+              variants={reveal}
               whileHover={{ y: -4 }}
               className="group flex flex-col items-center gap-2 rounded-2xl border border-border bg-white p-5 shadow-soft transition hover:border-success/40 hover:shadow-lift"
             >
               <div className="text-4xl transition-transform group-hover:scale-110">{l.flag}</div>
-              <div className="text-sm font-semibold text-brand">{l.name}</div>
+              <div className="text-sm font-semibold text-brand">{l.native}</div>
             </motion.div>
           ))}
-        </motion.div>
+        </SectionReveal>
 
-        <div className="mt-10 text-center">
+        <div className="mt-8 text-center">
           <a href={WHATSAPP} target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-full bg-success px-6 py-3 text-sm font-semibold text-success-foreground btn-glow transition hover:scale-[1.03]">
-            <MessageCircle className="h-4 w-4" /> Jetzt Hilfe erhalten
+            <MessageCircle className="h-4 w-4" /> {t("lang.cta")}
           </a>
         </div>
       </div>
@@ -276,7 +322,7 @@ function LanguagesSection() {
   );
 }
 
-const PROBLEMS = [
+const PROBLEMS_KEYS = [
   "Formulare sind kompliziert",
   "Briefe vom Amt verstehen",
   "Jobcenter-Anträge",
@@ -284,7 +330,7 @@ const PROBLEMS = [
   "Bewerbungen erstellen",
   "Dokumente organisieren",
 ];
-const SOLUTIONS = [
+const SOLUTIONS_KEYS = [
   "Persönliche Unterstützung",
   "Mehrsprachige Betreuung",
   "Strukturierte Vorbereitung",
@@ -294,26 +340,27 @@ const SOLUTIONS = [
 ];
 
 function ProblemSolution() {
+  const { t } = useI18n();
   return (
-    <section className="bg-background py-20 lg:py-28">
+    <section className="bg-background py-14 lg:py-20">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="mx-auto max-w-2xl text-center">
-          <motion.h2 variants={fadeUp} className="text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
-            Aus Stress wird Klarheit.
+        <SectionReveal className="mx-auto max-w-2xl text-center">
+          <motion.h2 variants={reveal} className="text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
+            {t("ps.title")}
           </motion.h2>
-          <motion.p variants={fadeUp} className="mt-4 text-base text-muted-foreground sm:text-lg">
-            Wir nehmen Ihnen den Papierkram ab.
+          <motion.p variants={reveal} className="mt-3 text-base text-foreground/70 sm:text-lg">
+            {t("ps.sub")}
           </motion.p>
-        </motion.div>
+        </SectionReveal>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="rounded-3xl border border-border bg-white p-7 shadow-soft sm:p-9">
-            <motion.div variants={fadeUp} className="mb-5 inline-flex items-center gap-2 rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-600">
-              Ihre Herausforderungen
+        <div className="mt-10 grid gap-6 lg:grid-cols-2">
+          <SectionReveal className="rounded-3xl border border-border bg-white p-7 shadow-soft sm:p-9">
+            <motion.div variants={reveal} className="mb-5 inline-flex items-center gap-2 rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-600">
+              {t("ps.problems")}
             </motion.div>
             <ul className="space-y-3">
-              {PROBLEMS.map((p) => (
-                <motion.li key={p} variants={fadeUp} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-foreground/80">
+              {PROBLEMS_KEYS.map((p) => (
+                <motion.li key={p} variants={reveal} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-foreground/80">
                   <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-rose-50 text-rose-500">
                     <X className="h-4 w-4" strokeWidth={3} />
                   </span>
@@ -321,15 +368,15 @@ function ProblemSolution() {
                 </motion.li>
               ))}
             </ul>
-          </motion.div>
+          </SectionReveal>
 
-          <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="rounded-3xl border border-success/20 bg-gradient-to-br from-success/5 to-white p-7 shadow-lift sm:p-9">
-            <motion.div variants={fadeUp} className="mb-5 inline-flex items-center gap-2 rounded-full bg-success/15 px-3 py-1 text-xs font-semibold text-success">
-              Unsere Lösung
+          <SectionReveal className="rounded-3xl border border-success/20 bg-gradient-to-br from-success/5 to-white p-7 shadow-lift sm:p-9">
+            <motion.div variants={reveal} className="mb-5 inline-flex items-center gap-2 rounded-full bg-success/15 px-3 py-1 text-xs font-semibold text-success">
+              {t("ps.solutions")}
             </motion.div>
             <ul className="space-y-3">
-              {SOLUTIONS.map((s) => (
-                <motion.li key={s} variants={fadeUp} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-foreground">
+              {SOLUTIONS_KEYS.map((s) => (
+                <motion.li key={s} variants={reveal} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-foreground">
                   <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-success text-success-foreground">
                     <Check className="h-4 w-4" strokeWidth={3} />
                   </span>
@@ -337,108 +384,90 @@ function ProblemSolution() {
                 </motion.li>
               ))}
             </ul>
-          </motion.div>
+          </SectionReveal>
         </div>
       </div>
     </section>
   );
 }
 
-const SERVICES = [
-  { icon: FileText, title: "Behörden & Formulare", desc: "Anträge ausfüllen, Briefe vom Amt erklären, Termine vorbereiten." },
-  { icon: Wallet, title: "Jobcenter & Soziales", desc: "Bürgergeld, Wohngeld, Kindergeld und mehr – Antrag und Weiterbewilligung." },
-  { icon: Globe2, title: "Aufenthalt & Integration", desc: "Aufenthalt, Familiennachzug, Einbürgerung und Sprachkurse." },
-  { icon: Briefcase, title: "Bewerbung & Karriere", desc: "Lebenslauf, Anschreiben und komplette Bewerbungsmappe als PDF." },
-  { icon: LangIcon, title: "Übersetzung & Sprache", desc: "Mehrsprachig: Deutsch, Türkisch, Arabisch, Ukrainisch, Russisch, Albanisch." },
-  { icon: ClipboardList, title: "Finanzen ordnen", desc: "Einnahmen, Ausgaben und Schulden übersichtlich sortiert." },
-  { icon: Wrench, title: "Handwerk & Kleinbetrieb", desc: "Angebote, Rechnungen, Stundenzettel und digitale Ablage." },
-  { icon: Building2, title: "Allgemeiner Büroservice", desc: "Schreiben, Scannen, Archivieren, Termine – diskret und zuverlässig." },
-  { icon: Network, title: "Netzwerk & Vermittlung", desc: "Wir vermitteln an Steuerberater, Anwälte, Notare und Fachbetriebe." },
-];
+const SERVICE_ICONS = [FileText, Wallet, Globe2, Briefcase, LangIcon, ClipboardList, Wrench, Building2, Network];
 
 function Services() {
+  const { t } = useI18n();
   return (
-    <section id="leistungen" className="bg-white py-20 lg:py-28">
+    <section id="leistungen" className="bg-white py-14 lg:py-20">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="mx-auto max-w-2xl text-center">
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold text-brand">
-            Leistungen
+        <SectionReveal className="mx-auto max-w-2xl text-center">
+          <motion.div variants={reveal} className="inline-flex items-center gap-2 rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold text-brand">
+            {t("nav.services")}
           </motion.div>
-          <motion.h2 variants={fadeUp} className="mt-4 text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
-            Unsere Leistungen.
+          <motion.h2 variants={reveal} className="mt-4 text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
+            {t("svc.title")}
           </motion.h2>
-          <motion.p variants={fadeUp} className="mt-4 text-base text-muted-foreground sm:text-lg">
-            Vom Antrag bis zur Büroarbeit – wir kümmern uns.
+          <motion.p variants={reveal} className="mt-3 text-base text-foreground/70 sm:text-lg">
+            {t("svc.sub")}
           </motion.p>
-        </motion.div>
+        </SectionReveal>
 
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true, margin: "-80px" }} variants={stagger} className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map((s) => {
-            const Icon = s.icon;
+        <SectionReveal className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {SERVICE_ICONS.map((Icon, i) => {
+            const n = i + 1;
             return (
               <motion.div
-                key={s.title}
-                variants={fadeUp}
+                key={n}
+                variants={reveal}
                 whileHover={{ y: -6 }}
-                className="group relative overflow-hidden rounded-3xl border border-border bg-white p-6 shadow-soft transition hover:border-brand/30 hover:shadow-lift"
+                className="group relative overflow-hidden rounded-3xl border border-border bg-white p-6 shadow-soft transition hover:-translate-y-1 hover:border-brand/30 hover:shadow-lift"
               >
                 <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br from-success/20 to-brand/10 opacity-0 blur-2xl transition group-hover:opacity-100" />
                 <div className="brand-gradient mb-5 grid h-12 w-12 place-items-center rounded-2xl text-white shadow-lift transition group-hover:scale-110">
-                  <Icon className="h-5.5 w-5.5" strokeWidth={2} />
+                  <Icon className="h-5 w-5" strokeWidth={2} />
                 </div>
-                <h3 className="text-lg font-bold text-brand">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+                <h3 className="text-lg font-bold text-brand">{t(`svc.${n}.t`)}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-foreground/70">{t(`svc.${n}.d`)}</p>
               </motion.div>
             );
           })}
-        </motion.div>
+        </SectionReveal>
       </div>
     </section>
   );
 }
 
-const STEPS = [
-  { n: "01", title: "Kontakt aufnehmen", desc: "Per WhatsApp, Telefon oder Formular." },
-  { n: "02", title: "Kostenloses Erstgespräch", desc: "Wir hören zu – in Ihrer Sprache." },
-  { n: "03", title: "Unterlagen prüfen", desc: "Wir sortieren und finden den schnellsten Weg." },
-  { n: "04", title: "Wir übernehmen", desc: "Formulare und Anträge erledigen wir für Sie." },
-  { n: "05", title: "Fertig!", desc: "Sie erhalten alle Unterlagen klar und sortiert." },
-];
-
 function Process() {
+  const { t } = useI18n();
+  const steps = [1, 2, 3, 4, 5];
   return (
-    <section id="ablauf" className="bg-background py-20 lg:py-28">
+    <section id="ablauf" className="bg-background py-14 lg:py-20">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="mx-auto max-w-2xl text-center">
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full bg-success/15 px-3 py-1 text-xs font-semibold text-success">
-            So einfach geht's
+        <SectionReveal className="mx-auto max-w-2xl text-center">
+          <motion.div variants={reveal} className="inline-flex items-center gap-2 rounded-full bg-success/15 px-3 py-1 text-xs font-semibold text-success">
+            {t("proc.badge")}
           </motion.div>
-          <motion.h2 variants={fadeUp} className="mt-4 text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
-            In 5 Schritten zur Lösung.
+          <motion.h2 variants={reveal} className="mt-4 text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
+            {t("proc.title")}
           </motion.h2>
-        </motion.div>
+        </SectionReveal>
 
-        <div className="relative mt-16">
-          <motion.div
-            initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true }} transition={{ duration: 1.4, ease: "easeOut" }}
-            className="absolute left-6 top-0 hidden h-full w-0.5 origin-top bg-gradient-to-b from-brand via-success to-transparent sm:block lg:left-1/2 lg:-translate-x-1/2"
-          />
+        <div className="relative mt-12">
+          <div className="absolute left-6 top-0 hidden h-full w-0.5 bg-gradient-to-b from-brand via-success to-transparent sm:block lg:left-1/2 lg:-translate-x-1/2" />
           <ol className="space-y-6 lg:space-y-10">
-            {STEPS.map((s, i) => (
+            {steps.map((n, i) => (
               <motion.li
-                key={s.n}
-                initial={{ opacity: 0, y: 30 }}
+                key={n}
+                initial={{ opacity: 1, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.6, delay: i * 0.05 }}
+                viewport={{ once: true, amount: 0.05 }}
+                transition={{ duration: 0.45, delay: i * 0.03 }}
                 className={`relative grid items-center gap-4 sm:grid-cols-[3rem_minmax(0,1fr)] sm:gap-6 lg:grid-cols-2 ${i % 2 === 1 ? "lg:[&>.card]:col-start-2" : ""}`}
               >
                 <div className="brand-gradient relative z-10 grid h-12 w-12 place-items-center rounded-2xl font-bold text-white shadow-lift lg:absolute lg:left-1/2 lg:-translate-x-1/2">
-                  {s.n}
+                  0{n}
                 </div>
                 <div className={`card rounded-2xl border border-border bg-white p-6 shadow-soft transition hover:shadow-lift ${i % 2 === 1 ? "lg:mr-auto lg:ml-12" : "lg:ml-auto lg:mr-12"} lg:max-w-md`}>
-                  <h3 className="text-lg font-bold text-brand">{s.title}</h3>
-                  <p className="mt-1.5 text-sm text-muted-foreground">{s.desc}</p>
+                  <h3 className="text-lg font-bold text-brand">{t(`proc.${n}.t`)}</h3>
+                  <p className="mt-1.5 text-sm text-foreground/70">{t(`proc.${n}.d`)}</p>
                 </div>
               </motion.li>
             ))}
@@ -455,74 +484,80 @@ const WHY = [
 ];
 
 function WhyUs() {
+  const { t } = useI18n();
   return (
-    <section className="bg-brand py-20 text-brand-foreground lg:py-28">
+    <section className="bg-brand py-14 text-brand-foreground lg:py-20">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="mx-auto max-w-2xl text-center">
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">
-            Warum ERCA Büro
+        <SectionReveal className="mx-auto max-w-2xl text-center">
+          <motion.div variants={reveal} className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">
+            {t("why.badge")}
           </motion.div>
-          <motion.h2 variants={fadeUp} className="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
-            Persönlich. Verlässlich. Verständlich.
+          <motion.h2 variants={reveal} className="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
+            {t("why.title")}
           </motion.h2>
-        </motion.div>
+        </SectionReveal>
 
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <SectionReveal className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {WHY.map((w) => (
-            <motion.div key={w} variants={fadeUp} whileHover={{ y: -4 }} className="flex items-center gap-2.5 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur transition hover:bg-white/10">
+            <motion.div key={w} variants={reveal} whileHover={{ y: -4 }} className="flex items-center gap-2.5 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur transition hover:bg-white/10">
               <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-success text-success-foreground">
                 <Check className="h-4 w-4" strokeWidth={3} />
               </span>
               <span className="text-sm font-semibold text-white">{w}</span>
             </motion.div>
           ))}
-        </motion.div>
+        </SectionReveal>
       </div>
     </section>
   );
 }
 
+// Beispielstimmen (Beispieltexte) — keine echten Namen.
 const REVIEWS = [
-  { name: "Murat Y.", role: "Familienvater, Essen", text: "Endlich jemand, der mir alle Briefe vom Amt auf Türkisch erklärt. Schnell, freundlich und absolut zuverlässig." },
-  { name: "Familie Al-Hassan", role: "Neu in Deutschland", text: "ERCA Büro hat uns durch die ganze Bürokratie geführt. Auf Arabisch erklärt, in Ruhe und mit viel Geduld. Danke!" },
-  { name: "Oksana K.", role: "aus der Ukraine", text: "Hilfe bei Anträgen, Aufenthalt und Wohngeld – alles auf Ukrainisch. Ich habe mich endlich verstanden gefühlt." },
-  { name: "Daniel R.", role: "Bewerber", text: "Mein Lebenslauf und meine Bewerbung sehen jetzt richtig professionell aus. Direkt zwei Einladungen bekommen." },
-  { name: "Tarek B.", role: "Kleinunternehmer", text: "Endlich Ordnung im Büroalltag. Rechnungen, Schreiben, Anträge – alles strukturiert und pünktlich." },
-  { name: "Stefan M.", role: "Handwerksbetrieb", text: "Ich konzentriere mich auf die Baustelle, ERCA macht den Papierkram. Beste Entscheidung des Jahres." },
+  { initial: "M.", role: "Familienvater, Essen", text: "Endlich jemand, der mir alle Briefe vom Amt verständlich erklärt. Schnell, freundlich und zuverlässig." },
+  { initial: "F.", role: "Neu in Deutschland", text: "Wir wurden mit viel Geduld durch die ganze Bürokratie geführt. Alles in unserer Sprache erklärt." },
+  { initial: "O.", role: "Familie aus der Ukraine", text: "Hilfe bei Anträgen, Aufenthalt und Wohngeld – ich habe mich endlich verstanden gefühlt." },
+  { initial: "D.", role: "Bewerber", text: "Mein Lebenslauf und meine Bewerbung sehen jetzt richtig professionell aus." },
+  { initial: "T.", role: "Kleinunternehmer", text: "Endlich Ordnung im Büroalltag: Rechnungen, Schreiben, Anträge – alles strukturiert und pünktlich." },
+  { initial: "S.", role: "Handwerksbetrieb", text: "Ich konzentriere mich auf die Baustelle, ERCA macht den Papierkram." },
 ];
 
 function Reviews() {
+  const { t } = useI18n();
   return (
-    <section id="bewertungen" className="bg-background py-20 lg:py-28">
+    <section id="bewertungen" className="bg-background py-14 lg:py-20">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="mx-auto max-w-2xl text-center">
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold text-brand">
-            Bewertungen
+        <SectionReveal className="mx-auto max-w-2xl text-center">
+          <motion.div variants={reveal} className="inline-flex items-center gap-2 rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold text-brand">
+            {t("rev.badge")}
           </motion.div>
-          <motion.h2 variants={fadeUp} className="mt-4 text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
-            Vertrauen, das spürbar ist.
+          <motion.h2 variants={reveal} className="mt-4 text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
+            {t("rev.title")}
           </motion.h2>
-        </motion.div>
+          <motion.p variants={reveal} className="mt-3 text-sm text-foreground/60">
+            {t("rev.disclaimer")}
+          </motion.p>
+        </SectionReveal>
 
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true, margin: "-80px" }} variants={stagger} className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {REVIEWS.map((r) => (
-            <motion.div key={r.name} variants={fadeUp} whileHover={{ y: -4 }} className="flex flex-col rounded-3xl border border-border bg-white p-6 shadow-soft transition hover:shadow-lift">
+        <SectionReveal className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {REVIEWS.map((r, i) => (
+            <motion.div key={i} variants={reveal} whileHover={{ y: -4 }} className="flex flex-col rounded-3xl border border-border bg-white p-6 shadow-soft transition hover:shadow-lift">
               <div className="flex gap-0.5">
-                {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />)}
+                {Array.from({ length: 5 }).map((_, j) => <Star key={j} className="h-4 w-4 fill-amber-400 text-amber-400" />)}
               </div>
               <p className="mt-4 flex-1 text-sm leading-relaxed text-foreground/80">„{r.text}"</p>
               <div className="mt-5 flex items-center gap-3 border-t border-border pt-4">
                 <div className="brand-gradient grid h-10 w-10 place-items-center rounded-full text-sm font-bold text-white">
-                  {r.name.charAt(0)}
+                  {r.initial}
                 </div>
                 <div className="leading-tight">
-                  <div className="text-sm font-bold text-brand">{r.name}</div>
-                  <div className="text-xs text-muted-foreground">{r.role}</div>
+                  <div className="text-sm font-bold text-brand">Mandant {r.initial}</div>
+                  <div className="text-xs text-foreground/60">{r.role}</div>
                 </div>
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </SectionReveal>
       </div>
     </section>
   );
@@ -539,34 +574,35 @@ const FAQS = [
 ];
 
 function FAQ() {
+  const { t } = useI18n();
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="bg-white py-20 lg:py-28">
+    <section id="faq" className="bg-white py-14 lg:py-20">
       <div className="mx-auto max-w-3xl px-5 lg:px-8">
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="text-center">
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold text-brand">FAQ</motion.div>
-          <motion.h2 variants={fadeUp} className="mt-4 text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
-            Häufig gestellte Fragen.
+        <SectionReveal className="text-center">
+          <motion.div variants={reveal} className="inline-flex items-center gap-2 rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold text-brand">FAQ</motion.div>
+          <motion.h2 variants={reveal} className="mt-4 text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
+            {t("faq.title")}
           </motion.h2>
-        </motion.div>
+        </SectionReveal>
 
-        <div className="mt-12 space-y-3">
+        <div className="mt-10 space-y-3">
           {FAQS.map((f, i) => {
             const isOpen = open === i;
             return (
-              <motion.div key={f.q} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.04 }} className="overflow-hidden rounded-2xl border border-border bg-white shadow-soft">
+              <div key={f.q} className="overflow-hidden rounded-2xl border border-border bg-white shadow-soft">
                 <button onClick={() => setOpen(isOpen ? null : i)} className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition hover:bg-brand-soft/50">
                   <span className="text-sm font-semibold text-brand sm:text-base">{f.q}</span>
                   <ChevronDown className={`h-5 w-5 shrink-0 text-brand transition-transform ${isOpen ? "rotate-180" : ""}`} />
                 </button>
                 <AnimatePresence initial={false}>
                   {isOpen && (
-                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }}>
-                      <div className="px-5 pb-5 text-sm leading-relaxed text-muted-foreground sm:text-base">{f.a}</div>
+                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }}>
+                      <div className="px-5 pb-5 text-sm leading-relaxed text-foreground/75 sm:text-base">{f.a}</div>
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </div>
             );
           })}
         </div>
@@ -575,26 +611,78 @@ function FAQ() {
   );
 }
 
+type FormState = "idle" | "sending" | "success" | "error";
+
 function Contact() {
-  const [sent, setSent] = useState(false);
+  const { t } = useI18n();
+  const [state, setState] = useState<FormState>("idle");
+  const [errMsg, setErrMsg] = useState<string>("");
+  const [form, setForm] = useState({ name: "", phone: "", email: "", message: "", consent: false });
+
+  const update = (k: keyof typeof form, v: string | boolean) => setForm((f) => ({ ...f, [k]: v }));
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrMsg("");
+    // Simple validation
+    if (!form.name.trim() || form.name.length > 100 || !form.phone.trim() || form.phone.length > 50 || !form.message.trim() || form.message.length > 2000 || !form.consent) {
+      setState("error");
+      setErrMsg(t("contact.validation"));
+      return;
+    }
+    if (form.email && form.email.length > 0) {
+      const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email);
+      if (!ok) { setState("error"); setErrMsg(t("contact.validation")); return; }
+    }
+
+    setState("sending");
+    try {
+      // Compose WhatsApp message (reliable, no backend dependency).
+      const lines = [
+        `Neue Anfrage über die Website`,
+        `Name: ${form.name}`,
+        `Telefon: ${form.phone}`,
+        form.email ? `E-Mail: ${form.email}` : "",
+        ``,
+        `Anliegen:`,
+        form.message,
+      ].filter(Boolean).join("\n");
+      const url = `${WHATSAPP}?text=${encodeURIComponent(lines)}`;
+      // Also try a mailto fallback in a separate tab is brittle; we offer the link in success state instead.
+      setState("success");
+      // Open WhatsApp in new tab so the visitor's message reaches us.
+      window.open(url, "_blank", "noopener,noreferrer");
+    } catch {
+      setState("error");
+      setErrMsg(t("contact.error"));
+    }
+  };
+
   return (
-    <section id="kontakt" className="relative overflow-hidden bg-background py-20 lg:py-28">
+    <section id="kontakt" className="relative overflow-hidden bg-background py-14 lg:py-20">
       <div className="absolute inset-0 -z-10 hero-bg opacity-70" />
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="mx-auto max-w-2xl text-center">
-          <motion.h2 variants={fadeUp} className="text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
-            Schreiben Sie uns.
+        <SectionReveal className="mx-auto max-w-2xl text-center">
+          <motion.h2 variants={reveal} className="text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
+            {t("contact.title")}
           </motion.h2>
-          <motion.p variants={fadeUp} className="mt-4 text-base text-muted-foreground sm:text-lg">
-            Wir melden uns schnell zurück.
+          <motion.p variants={reveal} className="mt-3 text-base text-foreground/70 sm:text-lg">
+            {t("contact.sub")}
           </motion.p>
-        </motion.div>
+        </SectionReveal>
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-5">
-          <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="rounded-3xl bg-brand p-7 text-brand-foreground shadow-lift lg:col-span-2 lg:p-9">
-            <h3 className="text-xl font-bold">Kontakt</h3>
-            <p className="mt-2 text-sm text-white/70">Erkan Catak · ERCA Büro</p>
-            <div className="mt-7 space-y-4">
+        <div className="mt-12 grid gap-8 lg:grid-cols-5">
+          <div className="rounded-3xl bg-brand p-7 text-brand-foreground shadow-lift lg:col-span-2 lg:p-9">
+            <div className="flex items-center gap-3">
+              <div className="grid h-12 w-12 place-items-center rounded-xl bg-white p-1.5">
+                <img src={logoAsset.url} alt="ERCA" className="h-full w-full object-contain" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold">ERCA Büro</h3>
+                <p className="text-sm text-white/70">Erkan Catak</p>
+              </div>
+            </div>
+            <div className="mt-6 space-y-3">
               <a href={`tel:${PHONE}`} className="group flex items-center gap-4 rounded-2xl bg-white/5 p-4 transition hover:bg-white/10">
                 <div className="grid h-11 w-11 place-items-center rounded-xl bg-success text-success-foreground"><Phone className="h-5 w-5" /></div>
                 <div className="min-w-0">
@@ -642,51 +730,99 @@ function Contact() {
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
-          </motion.div>
+          </div>
 
-          <motion.form
-            initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-            onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+          <form
+            onSubmit={onSubmit}
+            noValidate
             className="rounded-3xl border border-border bg-white p-7 shadow-soft lg:col-span-3 lg:p-9"
           >
-            <h3 className="text-xl font-bold text-brand">Kostenlos anfragen</h3>
-            <p className="mt-1.5 text-sm text-muted-foreground">Antwort meist am selben Tag.</p>
+            <h3 className="text-xl font-bold text-brand">{t("contact.heading")}</h3>
+            <p className="mt-1.5 text-sm text-foreground/70">{t("contact.hint")}</p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              <Field label="Name" name="name" required />
-              <Field label="Telefon / WhatsApp" name="phone" type="tel" required />
-              <div className="sm:col-span-2"><Field label="E-Mail" name="email" type="email" /></div>
+              <Field label={t("contact.name")} required value={form.name} onChange={(v) => update("name", v)} maxLength={100} />
+              <Field label={t("contact.phone")} required type="tel" value={form.phone} onChange={(v) => update("phone", v)} maxLength={50} />
               <div className="sm:col-span-2">
-                <label className="block text-xs font-semibold text-brand">Ihr Anliegen *</label>
-                <textarea required name="message" rows={4} className="mt-1.5 w-full rounded-2xl border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-success focus:ring-4 focus:ring-success/15" placeholder="Worum geht es? In welcher Sprache möchten Sie betreut werden?" />
+                <Field label={t("contact.email")} type="email" value={form.email} onChange={(v) => update("email", v)} maxLength={150} />
+              </div>
+              <div className="sm:col-span-2">
+                <label className="block text-xs font-semibold text-brand">{t("contact.message")} *</label>
+                <textarea
+                  required
+                  rows={4}
+                  maxLength={2000}
+                  value={form.message}
+                  onChange={(e) => update("message", e.target.value)}
+                  className="mt-1.5 w-full rounded-2xl border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-success focus:ring-4 focus:ring-success/15"
+                  placeholder={t("contact.placeholder")}
+                />
               </div>
             </div>
 
-            <label className="mt-4 flex items-start gap-2.5 text-xs text-muted-foreground">
-              <input type="checkbox" required className="mt-0.5 h-4 w-4 rounded border-border accent-[color:var(--success)]" />
-              Ich bin damit einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage genutzt werden.
+            <label className="mt-4 flex items-start gap-2.5 text-xs text-foreground/70">
+              <input
+                type="checkbox"
+                required
+                checked={form.consent}
+                onChange={(e) => update("consent", e.target.checked)}
+                className="mt-0.5 h-4 w-4 rounded border-border accent-[color:var(--success)]"
+              />
+              <span>
+                {t("contact.consent")}{" "}
+                <Link to="/datenschutz" className="font-semibold text-brand underline hover:no-underline">
+                  {t("contact.consent.link")}
+                </Link>
+                .
+              </span>
             </label>
 
-            <button type="submit" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-success px-6 py-3.5 text-sm font-semibold text-success-foreground btn-glow transition hover:scale-[1.01] sm:w-auto">
-              {sent ? "Anfrage gesendet ✓" : "Jetzt kostenlos anfragen"} {!sent && <ArrowRight className="h-4 w-4" />}
+            <button
+              type="submit"
+              disabled={state === "sending"}
+              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-success px-6 py-3.5 text-sm font-semibold text-success-foreground btn-glow transition hover:scale-[1.01] disabled:opacity-70 sm:w-auto"
+            >
+              {state === "sending" ? t("contact.sending") : state === "success" ? `${t("contact.success")} ✓` : t("contact.submit")}
+              {state !== "sending" && state !== "success" && <ArrowRight className="h-4 w-4 rtl:rotate-180" />}
             </button>
 
-            <p className="mt-4 text-xs text-muted-foreground">
-              Oder direkt: <a href={`tel:${PHONE}`} className="font-semibold text-brand hover:underline">{PHONE_DISPLAY}</a> · <a href={WHATSAPP} target="_blank" rel="noopener" className="font-semibold text-success hover:underline">WhatsApp</a>
+            {state === "error" && errMsg && (
+              <p className="mt-3 text-xs font-semibold text-rose-600">{errMsg}</p>
+            )}
+            {state === "success" && (
+              <p className="mt-3 text-xs text-success">
+                {t("contact.success")}
+              </p>
+            )}
+
+            <p className="mt-4 text-xs text-foreground/60">
+              {t("contact.altline")}{" "}
+              <a href={`tel:${PHONE}`} className="font-semibold text-brand hover:underline">{PHONE_DISPLAY}</a>{" · "}
+              <a href={WHATSAPP} target="_blank" rel="noopener" className="font-semibold text-success hover:underline">WhatsApp</a>{" · "}
+              <a href={`mailto:${EMAIL}`} className="font-semibold text-brand hover:underline">{EMAIL}</a>
             </p>
-          </motion.form>
+          </form>
         </div>
       </div>
     </section>
   );
 }
 
-function Field({ label, name, type = "text", required }: { label: string; name: string; type?: string; required?: boolean }) {
+function Field({
+  label, type = "text", required, value, onChange, maxLength,
+}: {
+  label: string; type?: string; required?: boolean; value: string;
+  onChange: (v: string) => void; maxLength?: number;
+}) {
   return (
     <div>
       <label className="block text-xs font-semibold text-brand">{label}{required && " *"}</label>
       <input
-        name={name} type={type} required={required}
+        type={type}
+        required={required}
+        value={value}
+        maxLength={maxLength}
+        onChange={(e) => onChange(e.target.value)}
         className="mt-1.5 w-full rounded-2xl border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-success focus:ring-4 focus:ring-success/15"
       />
     </div>
@@ -695,16 +831,16 @@ function Field({ label, name, type = "text", required }: { label: string; name: 
 
 function LegalNotice() {
   return (
-    <section className="bg-brand-soft py-12">
+    <section className="bg-brand-soft py-10">
       <div className="mx-auto max-w-4xl px-5 lg:px-8">
         <div className="flex flex-col gap-4 rounded-2xl border border-brand/10 bg-white p-6 shadow-soft sm:flex-row sm:items-start">
           <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand">
             <ShieldCheck className="h-5 w-5" />
           </div>
-          <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">
+          <div className="space-y-3 text-sm leading-relaxed text-foreground/75">
             <p className="text-base font-semibold italic text-brand">„Wo unsere Leistung endet, beginnt unser Netzwerk."</p>
             <p>
-              <strong className="text-brand">Wichtiger Hinweis.</strong> ERCA Büro bietet ausschließlich organisatorische Unterstützung, Büroservice sowie Hilfe bei Formularen, Verwaltungsangelegenheiten und Unternehmensorganisation an. Es erfolgt <strong>keine Rechtsberatung</strong>, <strong>keine Steuerberatung</strong> und <strong>keine Schuldnerberatung</strong>. Rechtsverbindliche Auskünfte dürfen ausschließlich von entsprechend zugelassenen Fachstellen erteilt werden.
+              <strong className="text-brand">Wichtiger Hinweis.</strong> ERCA Büro bietet ausschließlich organisatorische Unterstützung, Büroservice sowie Hilfe bei Formularen und Verwaltungsangelegenheiten. Es erfolgt <strong>keine Rechtsberatung</strong>, <strong>keine Steuerberatung</strong> und <strong>keine Schuldnerberatung</strong>. Rechtsverbindliche Auskünfte dürfen ausschließlich von zugelassenen Fachstellen erteilt werden.
             </p>
           </div>
         </div>
@@ -714,20 +850,28 @@ function LegalNotice() {
 }
 
 function Footer() {
+  const { t } = useI18n();
   return (
     <footer className="bg-brand py-10 text-brand-foreground">
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 text-center sm:flex-row sm:text-left lg:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-5 text-center sm:flex-row sm:text-left lg:px-8">
         <div className="flex items-center gap-3">
-          <div className="grid h-12 w-12 place-items-center rounded-xl bg-white p-1.5">
+          <div className="grid h-14 w-14 place-items-center rounded-2xl bg-white p-2">
             <img src={logoAsset.url} alt="ERCA Büro Logo" className="h-full w-full object-contain" />
           </div>
           <div className="leading-tight">
             <div className="text-sm font-bold">ERCA Büro</div>
             <div className="text-xs text-white/60">Erkan Catak · Juliusstraße 21, 45128 Essen</div>
+            <div className="text-xs text-white/60">{PHONE_DISPLAY} · {EMAIL}</div>
           </div>
         </div>
-        <div className="text-xs text-white/60">
-          © {new Date().getFullYear()} ERCA Büro. Alle Rechte vorbehalten.
+        <div className="flex flex-col items-center gap-3 sm:items-end">
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-sm">
+            <Link to="/impressum" className="font-semibold text-white hover:underline">{t("footer.impressum")}</Link>
+            <Link to="/datenschutz" className="font-semibold text-white hover:underline">{t("footer.datenschutz")}</Link>
+          </div>
+          <div className="text-xs text-white/60">
+            © {new Date().getFullYear()} ERCA Büro. {t("footer.rights")}
+          </div>
         </div>
       </div>
     </footer>
@@ -736,10 +880,9 @@ function Footer() {
 
 function FloatingWhatsApp() {
   return (
-    <motion.a
+    <a
       href={WHATSAPP} target="_blank" rel="noopener"
-      initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1, type: "spring" }}
-      className="group fixed bottom-5 right-5 z-40 flex items-center gap-2.5 rounded-full bg-success py-3 pl-3 pr-4 text-success-foreground shadow-lift btn-glow"
+      className="group fixed bottom-5 right-5 z-40 flex items-center gap-2.5 rounded-full bg-success py-3 pl-3 pr-4 text-success-foreground shadow-lift btn-glow transition hover:scale-105"
       aria-label="WhatsApp Kontakt"
     >
       <span className="grid h-9 w-9 place-items-center rounded-full bg-white/15">
@@ -749,11 +892,12 @@ function FloatingWhatsApp() {
       <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-success ring-2 ring-white">
         <span className="absolute inset-0 animate-ping rounded-full bg-success" />
       </span>
-    </motion.a>
+    </a>
   );
 }
 
 function CookieBanner() {
+  const { t } = useI18n();
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     try {
@@ -779,15 +923,16 @@ function CookieBanner() {
                 <ShieldCheck className="h-5 w-5" />
               </div>
               <div className="min-w-0 text-sm leading-relaxed text-foreground/80">
-                <strong className="text-brand">Cookies.</strong> Wir nutzen nur Cookies, die für die Seite nötig sind. Sie können selbst entscheiden.
+                <strong className="text-brand">Cookies.</strong> {t("cookies.text")}{" "}
+                <Link to="/datenschutz" className="font-semibold text-brand underline hover:no-underline">{t("footer.datenschutz")}</Link>
               </div>
             </div>
             <div className="flex shrink-0 gap-2 sm:ml-auto">
               <button onClick={() => choose("declined")} className="flex-1 rounded-full border border-border bg-white px-4 py-2.5 text-sm font-semibold text-foreground/80 transition hover:bg-brand-soft sm:flex-none">
-                Ablehnen
+                {t("cookies.decline")}
               </button>
               <button onClick={() => choose("accepted")} className="flex-1 rounded-full bg-success px-5 py-2.5 text-sm font-semibold text-success-foreground btn-glow transition hover:scale-[1.03] sm:flex-none">
-                Akzeptieren
+                {t("cookies.accept")}
               </button>
             </div>
           </div>
@@ -796,3 +941,6 @@ function CookieBanner() {
     </AnimatePresence>
   );
 }
+
+// Keep import to avoid unused warning if reduced motion path skips it.
+void useMemo;

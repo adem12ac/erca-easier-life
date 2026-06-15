@@ -82,13 +82,7 @@ function Nav() {
     <header className={`fixed inset-x-0 top-0 z-50 transition-all ${scrolled ? "glass-nav" : "bg-transparent"}`}>
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3.5 lg:px-8">
         <a href="#start" className="flex items-center gap-2.5">
-          <div className="brand-gradient grid h-9 w-9 place-items-center rounded-xl text-white shadow-lift">
-            <Sparkles className="h-4.5 w-4.5" strokeWidth={2.5} />
-          </div>
-          <div className="leading-tight">
-            <div className="text-base font-extrabold tracking-tight text-brand">ERCA Büro</div>
-            <div className="text-[10px] font-medium text-muted-foreground">Bürokratie. Einfach erledigt.</div>
-          </div>
+          <img src={logoAsset.url} alt="ERCA Büro Logo" className="h-10 w-auto sm:h-12" />
         </a>
 
         <nav className="hidden items-center gap-1 lg:flex">

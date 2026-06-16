@@ -251,11 +251,13 @@ function Hero() {
           </p>
         </div>
 
-        <div className="relative">
-          <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-tr from-success/20 via-brand/10 to-transparent blur-2xl" />
-          <div className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/40 p-2 shadow-lift backdrop-blur">
-            <img src={heroImg} alt="ERCA Büro Beratungssituation" width={1536} height={1280} className="h-full w-full rounded-[1.25rem] object-cover" />
-          </div>
+        <div className="relative flex items-center justify-center">
+          <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-gradient-to-tr from-success/20 via-brand/10 to-transparent blur-3xl" />
+          <img
+            src={logoAsset.url}
+            alt="ERCA Büro Logo"
+            className="h-auto w-full max-w-md drop-shadow-[0_20px_40px_rgba(15,40,90,0.18)] lg:max-w-xl"
+          />
         </div>
       </div>
     </section>
@@ -319,22 +321,8 @@ function LanguagesSection() {
   );
 }
 
-const PROBLEMS_KEYS = [
-  "Formulare sind kompliziert",
-  "Briefe vom Amt verstehen",
-  "Jobcenter-Anträge",
-  "Aufenthaltstitel",
-  "Bewerbungen erstellen",
-  "Dokumente organisieren",
-];
-const SOLUTIONS_KEYS = [
-  "Persönliche Unterstützung",
-  "Mehrsprachige Betreuung",
-  "Strukturierte Vorbereitung",
-  "Schnelle Bearbeitung",
-  "Klare Erklärungen",
-  "Professionelle Unterstützung",
-];
+const PROBLEMS_KEYS = ["ps.p.1","ps.p.2","ps.p.3","ps.p.4","ps.p.5","ps.p.6"];
+const SOLUTIONS_KEYS = ["ps.s.1","ps.s.2","ps.s.3","ps.s.4","ps.s.5","ps.s.6"];
 
 function ProblemSolution() {
   const { t } = useI18n();

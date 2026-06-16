@@ -799,6 +799,7 @@ function Field({
 }
 
 function LegalNotice() {
+  const { t } = useI18n();
   return (
     <section className="bg-brand-soft py-10">
       <div className="mx-auto max-w-4xl px-5 lg:px-8">
@@ -807,9 +808,9 @@ function LegalNotice() {
             <ShieldCheck className="h-5 w-5" />
           </div>
           <div className="space-y-3 text-sm leading-relaxed text-foreground/75">
-            <p className="text-base font-semibold italic text-brand">„Wo unsere Leistung endet, beginnt unser Netzwerk."</p>
+            <p className="text-base font-semibold italic text-brand">{t("legal.quote")}</p>
             <p>
-              <strong className="text-brand">Wichtiger Hinweis.</strong> ERCA Büro bietet ausschließlich organisatorische Unterstützung, Büroservice sowie Hilfe bei Formularen und Verwaltungsangelegenheiten. Es erfolgt <strong>keine Rechtsberatung</strong>, <strong>keine Steuerberatung</strong> und <strong>keine Schuldnerberatung</strong>. Rechtsverbindliche Auskünfte dürfen ausschließlich von zugelassenen Fachstellen erteilt werden.
+              <strong className="text-brand">{t("legal.heading")}</strong> {t("legal.text")}
             </p>
           </div>
         </div>

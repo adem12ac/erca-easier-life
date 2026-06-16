@@ -6,7 +6,6 @@ import {
   FileText, Building2, Globe2, Briefcase, Languages as LangIcon, Wallet, Wrench,
   ClipboardList, Network, Check, ArrowRight, ShieldCheck, Star,
 } from "lucide-react";
-import heroImg from "@/assets/hero.jpg";
 import logoAsset from "@/assets/erca-logo.png.asset.json";
 import { useI18n, LANGUAGES, type Lang } from "@/lib/i18n";
 
@@ -98,8 +97,8 @@ function LanguageSwitcher({ inverted = false }: { inverted?: boolean }) {
             : "text-foreground/70 hover:bg-brand-soft hover:text-brand"
         }`}
       >
-        <span className="text-base leading-none">{current.flag}</span>
-        <span className="hidden sm:inline">{current.code.toUpperCase()}</span>
+        <Globe2 className="h-4 w-4" />
+        <span>{current.code.toUpperCase()}</span>
         <ChevronDown className="h-3.5 w-3.5" />
       </button>
       <AnimatePresence>
@@ -148,9 +147,7 @@ function Nav() {
           <img
             src={logoAsset.url}
             alt="ERCA Büro Logo"
-            className="h-14 w-auto sm:h-16"
-            width={140}
-            height={64}
+            className="h-16 w-auto sm:h-20"
             style={{ imageRendering: "auto" }}
           />
         </a>
@@ -254,11 +251,13 @@ function Hero() {
           </p>
         </div>
 
-        <div className="relative">
-          <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-tr from-success/20 via-brand/10 to-transparent blur-2xl" />
-          <div className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/40 p-2 shadow-lift backdrop-blur">
-            <img src={heroImg} alt="ERCA Büro Beratungssituation" width={1536} height={1280} className="h-full w-full rounded-[1.25rem] object-cover" />
-          </div>
+        <div className="relative flex items-center justify-center">
+          <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-gradient-to-tr from-success/20 via-brand/10 to-transparent blur-3xl" />
+          <img
+            src={logoAsset.url}
+            alt="ERCA Büro Logo"
+            className="h-auto w-full max-w-md drop-shadow-[0_20px_40px_rgba(15,40,90,0.18)] lg:max-w-xl"
+          />
         </div>
       </div>
     </section>
@@ -322,22 +321,8 @@ function LanguagesSection() {
   );
 }
 
-const PROBLEMS_KEYS = [
-  "Formulare sind kompliziert",
-  "Briefe vom Amt verstehen",
-  "Jobcenter-Anträge",
-  "Aufenthaltstitel",
-  "Bewerbungen erstellen",
-  "Dokumente organisieren",
-];
-const SOLUTIONS_KEYS = [
-  "Persönliche Unterstützung",
-  "Mehrsprachige Betreuung",
-  "Strukturierte Vorbereitung",
-  "Schnelle Bearbeitung",
-  "Klare Erklärungen",
-  "Professionelle Unterstützung",
-];
+const PROBLEMS_KEYS = ["ps.p.1","ps.p.2","ps.p.3","ps.p.4","ps.p.5","ps.p.6"];
+const SOLUTIONS_KEYS = ["ps.s.1","ps.s.2","ps.s.3","ps.s.4","ps.s.5","ps.s.6"];
 
 function ProblemSolution() {
   const { t } = useI18n();
@@ -364,7 +349,7 @@ function ProblemSolution() {
                   <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-rose-50 text-rose-500">
                     <X className="h-4 w-4" strokeWidth={3} />
                   </span>
-                  <span className="text-sm font-medium sm:text-base">{p}</span>
+                  <span className="text-sm font-medium sm:text-base">{t(p)}</span>
                 </motion.li>
               ))}
             </ul>
@@ -380,7 +365,7 @@ function ProblemSolution() {
                   <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-success text-success-foreground">
                     <Check className="h-4 w-4" strokeWidth={3} />
                   </span>
-                  <span className="text-sm font-semibold sm:text-base">{s}</span>
+                  <span className="text-sm font-semibold sm:text-base">{t(s)}</span>
                 </motion.li>
               ))}
             </ul>
@@ -478,10 +463,7 @@ function Process() {
   );
 }
 
-const WHY = [
-  "Mehrsprachig", "Persönlich", "Schnell erreichbar", "Diskret",
-  "Zuverlässig", "Faire Preise", "Vor Ort & Online", "Individuelle Unterstützung",
-];
+const WHY = ["why.1","why.2","why.3","why.4","why.5","why.6","why.7","why.8"];
 
 function WhyUs() {
   const { t } = useI18n();
@@ -503,7 +485,7 @@ function WhyUs() {
               <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-success text-success-foreground">
                 <Check className="h-4 w-4" strokeWidth={3} />
               </span>
-              <span className="text-sm font-semibold text-white">{w}</span>
+              <span className="text-sm font-semibold text-white">{t(w)}</span>
             </motion.div>
           ))}
         </SectionReveal>
@@ -512,14 +494,9 @@ function WhyUs() {
   );
 }
 
-// Beispielstimmen (Beispieltexte) — keine echten Namen.
 const REVIEWS = [
-  { initial: "M.", role: "Familienvater, Essen", text: "Endlich jemand, der mir alle Briefe vom Amt verständlich erklärt. Schnell, freundlich und zuverlässig." },
-  { initial: "F.", role: "Neu in Deutschland", text: "Wir wurden mit viel Geduld durch die ganze Bürokratie geführt. Alles in unserer Sprache erklärt." },
-  { initial: "O.", role: "Familie aus der Ukraine", text: "Hilfe bei Anträgen, Aufenthalt und Wohngeld – ich habe mich endlich verstanden gefühlt." },
-  { initial: "D.", role: "Bewerber", text: "Mein Lebenslauf und meine Bewerbung sehen jetzt richtig professionell aus." },
-  { initial: "T.", role: "Kleinunternehmer", text: "Endlich Ordnung im Büroalltag: Rechnungen, Schreiben, Anträge – alles strukturiert und pünktlich." },
-  { initial: "S.", role: "Handwerksbetrieb", text: "Ich konzentriere mich auf die Baustelle, ERCA macht den Papierkram." },
+  { initial: "M.", k: 1 }, { initial: "F.", k: 2 }, { initial: "O.", k: 3 },
+  { initial: "D.", k: 4 }, { initial: "T.", k: 5 }, { initial: "S.", k: 6 },
 ];
 
 function Reviews() {
@@ -545,14 +522,14 @@ function Reviews() {
               <div className="flex gap-0.5">
                 {Array.from({ length: 5 }).map((_, j) => <Star key={j} className="h-4 w-4 fill-amber-400 text-amber-400" />)}
               </div>
-              <p className="mt-4 flex-1 text-sm leading-relaxed text-foreground/80">„{r.text}"</p>
+              <p className="mt-4 flex-1 text-sm leading-relaxed text-foreground/80">„{t(`rev.${r.k}.t`)}"</p>
               <div className="mt-5 flex items-center gap-3 border-t border-border pt-4">
                 <div className="brand-gradient grid h-10 w-10 place-items-center rounded-full text-sm font-bold text-white">
                   {r.initial}
                 </div>
                 <div className="leading-tight">
-                  <div className="text-sm font-bold text-brand">Mandant {r.initial}</div>
-                  <div className="text-xs text-foreground/60">{r.role}</div>
+                  <div className="text-sm font-bold text-brand">{t("rev.client")} {r.initial}</div>
+                  <div className="text-xs text-foreground/60">{t(`rev.${r.k}.r`)}</div>
                 </div>
               </div>
             </motion.div>
@@ -563,15 +540,7 @@ function Reviews() {
   );
 }
 
-const FAQS = [
-  { q: "Welche Sprachen sprechen Sie?", a: "Deutsch, Türkisch, Arabisch, Ukrainisch, Russisch und Albanisch." },
-  { q: "Was kostet die Hilfe?", a: "Das Erstgespräch ist kostenlos. Danach machen wir Ihnen ein faires Angebot." },
-  { q: "Geht das auch online?", a: "Ja. Per WhatsApp, E-Mail oder Videocall – ganz wie Sie möchten." },
-  { q: "Kommen Sie zu Terminen mit?", a: "Ja, auf Wunsch begleiten wir Sie zum Amt oder zur Beratung." },
-  { q: "Machen Sie Rechtsberatung?", a: "Nein. Wir machen keine Rechts-, Steuer- oder Schuldnerberatung. Wir helfen nur bei Formularen und im Büro." },
-  { q: "Wie schnell geht das?", a: "Meistens melden wir uns am selben Tag." },
-  { q: "Was muss ich mitbringen?", a: "Einfach alle Briefe und Unterlagen, die Sie haben. Wir prüfen den Rest." },
-];
+const FAQS = [1, 2, 3, 4, 5, 6, 7];
 
 function FAQ() {
   const { t } = useI18n();
@@ -587,18 +556,18 @@ function FAQ() {
         </SectionReveal>
 
         <div className="mt-10 space-y-3">
-          {FAQS.map((f, i) => {
+          {FAQS.map((n, i) => {
             const isOpen = open === i;
             return (
-              <div key={f.q} className="overflow-hidden rounded-2xl border border-border bg-white shadow-soft">
+              <div key={n} className="overflow-hidden rounded-2xl border border-border bg-white shadow-soft">
                 <button onClick={() => setOpen(isOpen ? null : i)} className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition hover:bg-brand-soft/50">
-                  <span className="text-sm font-semibold text-brand sm:text-base">{f.q}</span>
+                  <span className="text-sm font-semibold text-brand sm:text-base">{t(`faq.${n}.q`)}</span>
                   <ChevronDown className={`h-5 w-5 shrink-0 text-brand transition-transform ${isOpen ? "rotate-180" : ""}`} />
                 </button>
                 <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }}>
-                      <div className="px-5 pb-5 text-sm leading-relaxed text-foreground/75 sm:text-base">{f.a}</div>
+                      <div className="px-5 pb-5 text-sm leading-relaxed text-foreground/75 sm:text-base">{t(`faq.${n}.a`)}</div>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -686,37 +655,37 @@ function Contact() {
               <a href={`tel:${PHONE}`} className="group flex items-center gap-4 rounded-2xl bg-white/5 p-4 transition hover:bg-white/10">
                 <div className="grid h-11 w-11 place-items-center rounded-xl bg-success text-success-foreground"><Phone className="h-5 w-5" /></div>
                 <div className="min-w-0">
-                  <div className="text-xs text-white/60">Telefon</div>
+                  <div className="text-xs text-white/60">{t("contact.label.phone")}</div>
                   <div className="truncate text-sm font-semibold">{PHONE_DISPLAY}</div>
                 </div>
               </a>
               <a href={WHATSAPP} target="_blank" rel="noopener" className="group flex items-center gap-4 rounded-2xl bg-white/5 p-4 transition hover:bg-white/10">
                 <div className="grid h-11 w-11 place-items-center rounded-xl bg-success text-success-foreground"><MessageCircle className="h-5 w-5" /></div>
                 <div className="min-w-0">
-                  <div className="text-xs text-white/60">WhatsApp</div>
-                  <div className="truncate text-sm font-semibold">Direkt schreiben</div>
+                  <div className="text-xs text-white/60">{t("contact.label.whatsapp")}</div>
+                  <div className="truncate text-sm font-semibold">{t("contact.label.whatsapp.cta")}</div>
                 </div>
               </a>
               <a href={`mailto:${EMAIL}`} className="group flex items-center gap-4 rounded-2xl bg-white/5 p-4 transition hover:bg-white/10">
                 <div className="grid h-11 w-11 place-items-center rounded-xl bg-success text-success-foreground"><Mail className="h-5 w-5" /></div>
                 <div className="min-w-0">
-                  <div className="text-xs text-white/60">E-Mail</div>
+                  <div className="text-xs text-white/60">{t("contact.label.email")}</div>
                   <div className="truncate text-sm font-semibold">{EMAIL}</div>
                 </div>
               </a>
               <div className="flex items-center gap-4 rounded-2xl bg-white/5 p-4">
                 <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/10"><MapPin className="h-5 w-5" /></div>
                 <div className="min-w-0">
-                  <div className="text-xs text-white/60">Standort</div>
+                  <div className="text-xs text-white/60">{t("contact.label.location")}</div>
                   <div className="text-sm font-semibold">Juliusstraße 21, 45128 Essen</div>
                 </div>
               </div>
               <div className="flex items-center gap-4 rounded-2xl bg-white/5 p-4">
                 <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/10"><Clock className="h-5 w-5" /></div>
                 <div className="min-w-0">
-                  <div className="text-xs text-white/60">Öffnungszeiten</div>
-                  <div className="text-sm font-semibold">Mo – Fr · 09:00 – 18:00</div>
-                  <div className="text-xs text-white/60">Sa nach Vereinbarung</div>
+                  <div className="text-xs text-white/60">{t("contact.label.hours")}</div>
+                  <div className="text-sm font-semibold">{t("contact.hours.weekdays")}</div>
+                  <div className="text-xs text-white/60">{t("contact.hours.sat")}</div>
                 </div>
               </div>
             </div>
@@ -830,6 +799,7 @@ function Field({
 }
 
 function LegalNotice() {
+  const { t } = useI18n();
   return (
     <section className="bg-brand-soft py-10">
       <div className="mx-auto max-w-4xl px-5 lg:px-8">
@@ -838,9 +808,9 @@ function LegalNotice() {
             <ShieldCheck className="h-5 w-5" />
           </div>
           <div className="space-y-3 text-sm leading-relaxed text-foreground/75">
-            <p className="text-base font-semibold italic text-brand">„Wo unsere Leistung endet, beginnt unser Netzwerk."</p>
+            <p className="text-base font-semibold italic text-brand">{t("legal.quote")}</p>
             <p>
-              <strong className="text-brand">Wichtiger Hinweis.</strong> ERCA Büro bietet ausschließlich organisatorische Unterstützung, Büroservice sowie Hilfe bei Formularen und Verwaltungsangelegenheiten. Es erfolgt <strong>keine Rechtsberatung</strong>, <strong>keine Steuerberatung</strong> und <strong>keine Schuldnerberatung</strong>. Rechtsverbindliche Auskünfte dürfen ausschließlich von zugelassenen Fachstellen erteilt werden.
+              <strong className="text-brand">{t("legal.heading")}</strong> {t("legal.text")}
             </p>
           </div>
         </div>

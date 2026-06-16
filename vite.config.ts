@@ -12,4 +12,9 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // Outside the Lovable sandbox (e.g. on Vercel) the deploy plugin is otherwise skipped
+  // ("No Lovable context detected") and the app would target Cloudflare/Node instead.
+  // Passing an explicit nitro config force-enables the deploy plugin and emits
+  // .vercel/output (Build Output API v3), which Vercel serves automatically.
+  nitro: { preset: "vercel" },
 });

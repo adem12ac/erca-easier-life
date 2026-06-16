@@ -254,7 +254,7 @@ function Hero() {
         <div className="relative flex items-center justify-center">
           <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-gradient-to-tr from-success/20 via-brand/10 to-transparent blur-3xl" />
           <img
-            src={logoAsset.url}
+            src="/erca-hero.jpg"
             alt="ERCA Büro Logo"
             className="h-auto w-full max-w-md drop-shadow-[0_20px_40px_rgba(15,40,90,0.18)] lg:max-w-xl"
           />

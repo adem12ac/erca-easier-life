@@ -6,7 +6,6 @@ import {
   FileText, Building2, Globe2, Briefcase, Languages as LangIcon, Wallet, Wrench,
   ClipboardList, Network, Check, ArrowRight, ShieldCheck, Star,
 } from "lucide-react";
-import heroImg from "@/assets/hero.jpg";
 import logoAsset from "@/assets/erca-logo.png.asset.json";
 import { useI18n, LANGUAGES, type Lang } from "@/lib/i18n";
 
@@ -98,8 +97,8 @@ function LanguageSwitcher({ inverted = false }: { inverted?: boolean }) {
             : "text-foreground/70 hover:bg-brand-soft hover:text-brand"
         }`}
       >
-        <span className="text-base leading-none">{current.flag}</span>
-        <span className="hidden sm:inline">{current.code.toUpperCase()}</span>
+        <Globe2 className="h-4 w-4" />
+        <span>{current.code.toUpperCase()}</span>
         <ChevronDown className="h-3.5 w-3.5" />
       </button>
       <AnimatePresence>
@@ -148,9 +147,7 @@ function Nav() {
           <img
             src={logoAsset.url}
             alt="ERCA Büro Logo"
-            className="h-14 w-auto sm:h-16"
-            width={140}
-            height={64}
+            className="h-16 w-auto sm:h-20"
             style={{ imageRendering: "auto" }}
           />
         </a>

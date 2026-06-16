@@ -540,15 +540,7 @@ function Reviews() {
   );
 }
 
-const FAQS = [
-  { q: "Welche Sprachen sprechen Sie?", a: "Deutsch, Türkisch, Arabisch, Ukrainisch, Russisch und Albanisch." },
-  { q: "Was kostet die Hilfe?", a: "Das Erstgespräch ist kostenlos. Danach machen wir Ihnen ein faires Angebot." },
-  { q: "Geht das auch online?", a: "Ja. Per WhatsApp, E-Mail oder Videocall – ganz wie Sie möchten." },
-  { q: "Kommen Sie zu Terminen mit?", a: "Ja, auf Wunsch begleiten wir Sie zum Amt oder zur Beratung." },
-  { q: "Machen Sie Rechtsberatung?", a: "Nein. Wir machen keine Rechts-, Steuer- oder Schuldnerberatung. Wir helfen nur bei Formularen und im Büro." },
-  { q: "Wie schnell geht das?", a: "Meistens melden wir uns am selben Tag." },
-  { q: "Was muss ich mitbringen?", a: "Einfach alle Briefe und Unterlagen, die Sie haben. Wir prüfen den Rest." },
-];
+const FAQS = [1, 2, 3, 4, 5, 6, 7];
 
 function FAQ() {
   const { t } = useI18n();
@@ -564,18 +556,18 @@ function FAQ() {
         </SectionReveal>
 
         <div className="mt-10 space-y-3">
-          {FAQS.map((f, i) => {
+          {FAQS.map((n, i) => {
             const isOpen = open === i;
             return (
-              <div key={f.q} className="overflow-hidden rounded-2xl border border-border bg-white shadow-soft">
+              <div key={n} className="overflow-hidden rounded-2xl border border-border bg-white shadow-soft">
                 <button onClick={() => setOpen(isOpen ? null : i)} className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition hover:bg-brand-soft/50">
-                  <span className="text-sm font-semibold text-brand sm:text-base">{f.q}</span>
+                  <span className="text-sm font-semibold text-brand sm:text-base">{t(`faq.${n}.q`)}</span>
                   <ChevronDown className={`h-5 w-5 shrink-0 text-brand transition-transform ${isOpen ? "rotate-180" : ""}`} />
                 </button>
                 <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }}>
-                      <div className="px-5 pb-5 text-sm leading-relaxed text-foreground/75 sm:text-base">{f.a}</div>
+                      <div className="px-5 pb-5 text-sm leading-relaxed text-foreground/75 sm:text-base">{t(`faq.${n}.a`)}</div>
                     </motion.div>
                   )}
                 </AnimatePresence>

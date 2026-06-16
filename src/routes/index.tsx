@@ -655,37 +655,37 @@ function Contact() {
               <a href={`tel:${PHONE}`} className="group flex items-center gap-4 rounded-2xl bg-white/5 p-4 transition hover:bg-white/10">
                 <div className="grid h-11 w-11 place-items-center rounded-xl bg-success text-success-foreground"><Phone className="h-5 w-5" /></div>
                 <div className="min-w-0">
-                  <div className="text-xs text-white/60">Telefon</div>
+                  <div className="text-xs text-white/60">{t("contact.label.phone")}</div>
                   <div className="truncate text-sm font-semibold">{PHONE_DISPLAY}</div>
                 </div>
               </a>
               <a href={WHATSAPP} target="_blank" rel="noopener" className="group flex items-center gap-4 rounded-2xl bg-white/5 p-4 transition hover:bg-white/10">
                 <div className="grid h-11 w-11 place-items-center rounded-xl bg-success text-success-foreground"><MessageCircle className="h-5 w-5" /></div>
                 <div className="min-w-0">
-                  <div className="text-xs text-white/60">WhatsApp</div>
-                  <div className="truncate text-sm font-semibold">Direkt schreiben</div>
+                  <div className="text-xs text-white/60">{t("contact.label.whatsapp")}</div>
+                  <div className="truncate text-sm font-semibold">{t("contact.label.whatsapp.cta")}</div>
                 </div>
               </a>
               <a href={`mailto:${EMAIL}`} className="group flex items-center gap-4 rounded-2xl bg-white/5 p-4 transition hover:bg-white/10">
                 <div className="grid h-11 w-11 place-items-center rounded-xl bg-success text-success-foreground"><Mail className="h-5 w-5" /></div>
                 <div className="min-w-0">
-                  <div className="text-xs text-white/60">E-Mail</div>
+                  <div className="text-xs text-white/60">{t("contact.label.email")}</div>
                   <div className="truncate text-sm font-semibold">{EMAIL}</div>
                 </div>
               </a>
               <div className="flex items-center gap-4 rounded-2xl bg-white/5 p-4">
                 <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/10"><MapPin className="h-5 w-5" /></div>
                 <div className="min-w-0">
-                  <div className="text-xs text-white/60">Standort</div>
+                  <div className="text-xs text-white/60">{t("contact.label.location")}</div>
                   <div className="text-sm font-semibold">Juliusstraße 21, 45128 Essen</div>
                 </div>
               </div>
               <div className="flex items-center gap-4 rounded-2xl bg-white/5 p-4">
                 <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/10"><Clock className="h-5 w-5" /></div>
                 <div className="min-w-0">
-                  <div className="text-xs text-white/60">Öffnungszeiten</div>
-                  <div className="text-sm font-semibold">Mo – Fr · 09:00 – 18:00</div>
-                  <div className="text-xs text-white/60">Sa nach Vereinbarung</div>
+                  <div className="text-xs text-white/60">{t("contact.label.hours")}</div>
+                  <div className="text-sm font-semibold">{t("contact.hours.weekdays")}</div>
+                  <div className="text-xs text-white/60">{t("contact.hours.sat")}</div>
                 </div>
               </div>
             </div>

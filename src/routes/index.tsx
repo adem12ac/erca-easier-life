@@ -522,14 +522,14 @@ function Reviews() {
               <div className="flex gap-0.5">
                 {Array.from({ length: 5 }).map((_, j) => <Star key={j} className="h-4 w-4 fill-amber-400 text-amber-400" />)}
               </div>
-              <p className="mt-4 flex-1 text-sm leading-relaxed text-foreground/80">„{r.text}"</p>
+              <p className="mt-4 flex-1 text-sm leading-relaxed text-foreground/80">„{t(`rev.${r.k}.t`)}"</p>
               <div className="mt-5 flex items-center gap-3 border-t border-border pt-4">
                 <div className="brand-gradient grid h-10 w-10 place-items-center rounded-full text-sm font-bold text-white">
                   {r.initial}
                 </div>
                 <div className="leading-tight">
-                  <div className="text-sm font-bold text-brand">Mandant {r.initial}</div>
-                  <div className="text-xs text-foreground/60">{r.role}</div>
+                  <div className="text-sm font-bold text-brand">{t("rev.client")} {r.initial}</div>
+                  <div className="text-xs text-foreground/60">{t(`rev.${r.k}.r`)}</div>
                 </div>
               </div>
             </motion.div>

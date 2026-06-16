@@ -349,7 +349,7 @@ function ProblemSolution() {
                   <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-rose-50 text-rose-500">
                     <X className="h-4 w-4" strokeWidth={3} />
                   </span>
-                  <span className="text-sm font-medium sm:text-base">{p}</span>
+                  <span className="text-sm font-medium sm:text-base">{t(p)}</span>
                 </motion.li>
               ))}
             </ul>
@@ -365,7 +365,7 @@ function ProblemSolution() {
                   <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-success text-success-foreground">
                     <Check className="h-4 w-4" strokeWidth={3} />
                   </span>
-                  <span className="text-sm font-semibold sm:text-base">{s}</span>
+                  <span className="text-sm font-semibold sm:text-base">{t(s)}</span>
                 </motion.li>
               ))}
             </ul>

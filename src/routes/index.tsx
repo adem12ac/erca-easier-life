@@ -463,10 +463,7 @@ function Process() {
   );
 }
 
-const WHY = [
-  "Mehrsprachig", "Persönlich", "Schnell erreichbar", "Diskret",
-  "Zuverlässig", "Faire Preise", "Vor Ort & Online", "Individuelle Unterstützung",
-];
+const WHY = ["why.1","why.2","why.3","why.4","why.5","why.6","why.7","why.8"];
 
 function WhyUs() {
   const { t } = useI18n();
@@ -488,7 +485,7 @@ function WhyUs() {
               <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-success text-success-foreground">
                 <Check className="h-4 w-4" strokeWidth={3} />
               </span>
-              <span className="text-sm font-semibold text-white">{w}</span>
+              <span className="text-sm font-semibold text-white">{t(w)}</span>
             </motion.div>
           ))}
         </SectionReveal>
@@ -497,14 +494,9 @@ function WhyUs() {
   );
 }
 
-// Beispielstimmen (Beispieltexte) — keine echten Namen.
 const REVIEWS = [
-  { initial: "M.", role: "Familienvater, Essen", text: "Endlich jemand, der mir alle Briefe vom Amt verständlich erklärt. Schnell, freundlich und zuverlässig." },
-  { initial: "F.", role: "Neu in Deutschland", text: "Wir wurden mit viel Geduld durch die ganze Bürokratie geführt. Alles in unserer Sprache erklärt." },
-  { initial: "O.", role: "Familie aus der Ukraine", text: "Hilfe bei Anträgen, Aufenthalt und Wohngeld – ich habe mich endlich verstanden gefühlt." },
-  { initial: "D.", role: "Bewerber", text: "Mein Lebenslauf und meine Bewerbung sehen jetzt richtig professionell aus." },
-  { initial: "T.", role: "Kleinunternehmer", text: "Endlich Ordnung im Büroalltag: Rechnungen, Schreiben, Anträge – alles strukturiert und pünktlich." },
-  { initial: "S.", role: "Handwerksbetrieb", text: "Ich konzentriere mich auf die Baustelle, ERCA macht den Papierkram." },
+  { initial: "M.", k: 1 }, { initial: "F.", k: 2 }, { initial: "O.", k: 3 },
+  { initial: "D.", k: 4 }, { initial: "T.", k: 5 }, { initial: "S.", k: 6 },
 ];
 
 function Reviews() {

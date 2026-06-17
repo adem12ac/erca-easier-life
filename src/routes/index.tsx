@@ -210,14 +210,16 @@ function Hero() {
   const { t } = useI18n();
   const trust = [t("hero.t1"), t("hero.t2"), t("hero.t3"), t("hero.t4")];
   return (
-    <section className="hero-bg relative overflow-hidden pt-28 lg:min-h-[80vh] lg:pt-32">
-      <img
-        src="/erca-hero.jpg"
-        alt="ERCA Büro – Arbeitsplatz mit Laptop, Ordnern und Unterlagen"
-        className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
-      />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-white/95 via-white/65 to-white/20" />
-      <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 pb-16 lg:grid-cols-2 lg:gap-14 lg:px-8 lg:pb-24">
+    <section className="relative overflow-hidden pt-28 lg:min-h-[80vh] lg:pt-32">
+      <div className="absolute inset-0">
+        <img
+          src="/erca-hero.jpg"
+          alt="ERCA Büro – Arbeitsplatz mit Laptop, Ordnern und Unterlagen"
+          className="h-full w-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/65 to-white/20" />
+      </div>
+      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-5 pb-16 lg:grid-cols-2 lg:gap-14 lg:px-8 lg:pb-24">
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-brand/15 bg-white/70 px-3.5 py-1.5 text-xs font-semibold text-brand backdrop-blur">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-success animate-pulse" />

@@ -26,10 +26,17 @@ export const Route = createFileRoute("/")({
   component: LandingPage,
 });
 
-const WHATSAPP = "https://wa.me/4915212971388";
-const PHONE = "+4915212971388";
-const PHONE_DISPLAY = "+49 1521 2971388";
-const EMAIL = "kontakt@erca-buero.de";
+const WHATSAPP = "https://wa.me/4915216651944";
+const PHONE = "+4915216651944";
+const PHONE_DISPLAY = "+49 1521 6651944";
+const FAX_DISPLAY = "0201 84168352";
+const EMAIL_DISPLAY = "kontakt@ercabüro.de";
+const EMAIL_HREF = "mailto:kontakt@ercabüro.de";
+const SOCIALS = {
+  instagram: "https://www.instagram.com/buroerca?utm_source=qr&igsh=MW84YXR0cG9sNGl6Yw==",
+  facebook: "https://www.facebook.com/share/1EQS3cAbZu/",
+  tiktok: "https://pro.tiktok.com/t/ZG9jXXg7DrnDr-lsEwM/",
+};
 
 function LandingPage() {
   return (

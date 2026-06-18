@@ -400,7 +400,6 @@ function ProblemSolution() {
 }
 
 const SERVICE_ICONS = [FileText, Wallet, Globe2, Briefcase, LangIcon, ClipboardList, Wrench, Building2, Network, Building2, Home, FolderOpen, Calculator];
-const SERVICE_COUNT = 13;
 
 function Services() {
   const { t } = useI18n();

@@ -306,19 +306,7 @@ function LanguagesSection() {
           </motion.p>
         </SectionReveal>
 
-        <SectionReveal className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-          {LANGUAGES.map((l) => (
-            <motion.div
-              key={l.code}
-              variants={reveal}
-              whileHover={{ y: -4 }}
-              className="group flex flex-col items-center gap-2 rounded-2xl border border-border bg-white p-5 shadow-soft transition hover:border-success/40 hover:shadow-lift"
-            >
-              <div className="text-4xl transition-transform group-hover:scale-110">{l.flag}</div>
-              <div className="text-sm font-semibold text-brand">{l.native}</div>
-            </motion.div>
-          ))}
-        </SectionReveal>
+        <LangGrid />
 
         <div className="mt-8 text-center">
           <a href={WHATSAPP} target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-full bg-success px-6 py-3 text-sm font-semibold text-success-foreground btn-glow transition hover:scale-[1.03]">
@@ -329,6 +317,34 @@ function LanguagesSection() {
     </section>
   );
 }
+
+function LangGrid() {
+  const { lang, setLang } = useI18n();
+  return (
+    <SectionReveal className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+      {LANGUAGES.map((l) => {
+        const active = l.code === lang;
+        return (
+          <motion.button
+            key={l.code}
+            type="button"
+            onClick={() => setLang(l.code as Lang)}
+            variants={reveal}
+            whileHover={{ y: -4 }}
+            aria-pressed={active}
+            className={`group flex flex-col items-center gap-2 rounded-2xl border bg-white p-5 shadow-soft transition hover:shadow-lift ${active ? "border-success ring-2 ring-success/30" : "border-border hover:border-success/40"}`}
+          >
+            <div className="text-4xl transition-transform group-hover:scale-110">{l.flag}</div>
+            <div className="text-sm font-semibold text-brand">{l.native}</div>
+          </motion.button>
+        );
+      })}
+    </SectionReveal>
+  );
+}
+
+function _LangGridUnused() {
+  return null;
 
 const PROBLEMS_KEYS = ["ps.p.1","ps.p.2","ps.p.3","ps.p.4","ps.p.5","ps.p.6"];
 const SOLUTIONS_KEYS = ["ps.s.1","ps.s.2","ps.s.3","ps.s.4","ps.s.5","ps.s.6"];

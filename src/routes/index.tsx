@@ -2,9 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 import {
-  Phone, MessageCircle, Mail, MapPin, Clock, ChevronDown, Menu, X,
+  Phone, MessageCircle, Mail, MapPin, Clock, ChevronDown, Menu, X, Printer,
   FileText, Building2, Globe2, Briefcase, Languages as LangIcon, Wallet, Wrench,
-  ClipboardList, Network, Check, ArrowRight, ShieldCheck, Star,
+  ClipboardList, Network, Home, FolderOpen, Calculator, Instagram, Facebook,
+  Check, ArrowRight, ShieldCheck, Star,
 } from "lucide-react";
 import logoAsset from "@/assets/erca-logo.png.asset.json";
 import { useI18n, LANGUAGES, type Lang } from "@/lib/i18n";

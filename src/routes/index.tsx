@@ -806,7 +806,7 @@ function Contact() {
               {t("contact.altline")}{" "}
               <a href={`tel:${PHONE}`} className="font-semibold text-brand hover:underline">{PHONE_DISPLAY}</a>{" · "}
               <a href={WHATSAPP} target="_blank" rel="noopener" className="font-semibold text-success hover:underline">WhatsApp</a>{" · "}
-              <a href={`mailto:${EMAIL}`} className="font-semibold text-brand hover:underline">{EMAIL}</a>
+              <a href={EMAIL_HREF} className="font-semibold text-brand hover:underline">{EMAIL_DISPLAY}</a>
             </p>
           </form>
         </div>

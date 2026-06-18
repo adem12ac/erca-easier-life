@@ -2,9 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 import {
-  Phone, MessageCircle, Mail, MapPin, Clock, ChevronDown, Menu, X,
+  Phone, MessageCircle, Mail, MapPin, Clock, ChevronDown, Menu, X, Printer,
   FileText, Building2, Globe2, Briefcase, Languages as LangIcon, Wallet, Wrench,
-  ClipboardList, Network, Check, ArrowRight, ShieldCheck, Star,
+  ClipboardList, Network, Home, FolderOpen, Calculator, Instagram, Facebook,
+  Check, ArrowRight, ShieldCheck, Star,
 } from "lucide-react";
 import logoAsset from "@/assets/erca-logo.png.asset.json";
 import { useI18n, LANGUAGES, type Lang } from "@/lib/i18n";
@@ -25,10 +26,17 @@ export const Route = createFileRoute("/")({
   component: LandingPage,
 });
 
-const WHATSAPP = "https://wa.me/4915212971388";
-const PHONE = "+4915212971388";
-const PHONE_DISPLAY = "+49 1521 2971388";
-const EMAIL = "kontakt@erca-buero.de";
+const WHATSAPP = "https://wa.me/4915216651944";
+const PHONE = "+4915216651944";
+const PHONE_DISPLAY = "+49 1521 6651944";
+const FAX_DISPLAY = "0201 84168352";
+const EMAIL_DISPLAY = "kontakt@ercabüro.de";
+const EMAIL_HREF = "mailto:kontakt@ercabüro.de";
+const SOCIALS = {
+  instagram: "https://www.instagram.com/buroerca?utm_source=qr&igsh=MW84YXR0cG9sNGl6Yw==",
+  facebook: "https://www.facebook.com/share/1EQS3cAbZu/",
+  tiktok: "https://pro.tiktok.com/t/ZG9jXXg7DrnDr-lsEwM/",
+};
 
 function LandingPage() {
   return (
@@ -298,19 +306,7 @@ function LanguagesSection() {
           </motion.p>
         </SectionReveal>
 
-        <SectionReveal className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-          {LANGUAGES.map((l) => (
-            <motion.div
-              key={l.code}
-              variants={reveal}
-              whileHover={{ y: -4 }}
-              className="group flex flex-col items-center gap-2 rounded-2xl border border-border bg-white p-5 shadow-soft transition hover:border-success/40 hover:shadow-lift"
-            >
-              <div className="text-4xl transition-transform group-hover:scale-110">{l.flag}</div>
-              <div className="text-sm font-semibold text-brand">{l.native}</div>
-            </motion.div>
-          ))}
-        </SectionReveal>
+        <LangGrid />
 
         <div className="mt-8 text-center">
           <a href={WHATSAPP} target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-full bg-success px-6 py-3 text-sm font-semibold text-success-foreground btn-glow transition hover:scale-[1.03]">
@@ -321,6 +317,32 @@ function LanguagesSection() {
     </section>
   );
 }
+
+function LangGrid() {
+  const { lang, setLang } = useI18n();
+  return (
+    <SectionReveal className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+      {LANGUAGES.map((l) => {
+        const active = l.code === lang;
+        return (
+          <motion.button
+            key={l.code}
+            type="button"
+            onClick={() => setLang(l.code as Lang)}
+            variants={reveal}
+            whileHover={{ y: -4 }}
+            aria-pressed={active}
+            className={`group flex flex-col items-center gap-2 rounded-2xl border bg-white p-5 shadow-soft transition hover:shadow-lift ${active ? "border-success ring-2 ring-success/30" : "border-border hover:border-success/40"}`}
+          >
+            <div className="text-4xl transition-transform group-hover:scale-110">{l.flag}</div>
+            <div className="text-sm font-semibold text-brand">{l.native}</div>
+          </motion.button>
+        );
+      })}
+    </SectionReveal>
+  );
+}
+
 
 const PROBLEMS_KEYS = ["ps.p.1","ps.p.2","ps.p.3","ps.p.4","ps.p.5","ps.p.6"];
 const SOLUTIONS_KEYS = ["ps.s.1","ps.s.2","ps.s.3","ps.s.4","ps.s.5","ps.s.6"];
@@ -377,7 +399,7 @@ function ProblemSolution() {
   );
 }
 
-const SERVICE_ICONS = [FileText, Wallet, Globe2, Briefcase, LangIcon, ClipboardList, Wrench, Building2, Network];
+const SERVICE_ICONS = [FileText, Wallet, Globe2, Briefcase, LangIcon, ClipboardList, Wrench, Building2, Network, Building2, Home, FolderOpen, Calculator];
 
 function Services() {
   const { t } = useI18n();
@@ -667,13 +689,20 @@ function Contact() {
                   <div className="truncate text-sm font-semibold">{t("contact.label.whatsapp.cta")}</div>
                 </div>
               </a>
-              <a href={`mailto:${EMAIL}`} className="group flex items-center gap-4 rounded-2xl bg-white/5 p-4 transition hover:bg-white/10">
+              <a href={EMAIL_HREF} className="group flex items-center gap-4 rounded-2xl bg-white/5 p-4 transition hover:bg-white/10">
                 <div className="grid h-11 w-11 place-items-center rounded-xl bg-success text-success-foreground"><Mail className="h-5 w-5" /></div>
                 <div className="min-w-0">
                   <div className="text-xs text-white/60">{t("contact.label.email")}</div>
-                  <div className="truncate text-sm font-semibold">{EMAIL}</div>
+                  <div className="truncate text-sm font-semibold">{EMAIL_DISPLAY}</div>
                 </div>
               </a>
+              <div className="flex items-center gap-4 rounded-2xl bg-white/5 p-4">
+                <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/10"><Printer className="h-5 w-5" /></div>
+                <div className="min-w-0">
+                  <div className="text-xs text-white/60">{t("contact.label.fax")}</div>
+                  <div className="text-sm font-semibold">{FAX_DISPLAY}</div>
+                </div>
+              </div>
               <div className="flex items-center gap-4 rounded-2xl bg-white/5 p-4">
                 <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/10"><MapPin className="h-5 w-5" /></div>
                 <div className="min-w-0">
@@ -688,6 +717,27 @@ function Contact() {
                   <div className="text-sm font-semibold">{t("contact.hours.weekdays")}</div>
                   <div className="text-xs text-white/60">{t("contact.hours.sat")}</div>
                 </div>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-white/60">{t("contact.label.social")}</div>
+              <div className="grid grid-cols-3 gap-2">
+                <a href={SOCIALS.instagram} target="_blank" rel="noopener" aria-label="Instagram"
+                  className="group flex flex-col items-center gap-1.5 rounded-2xl bg-gradient-to-br from-pink-500 via-fuchsia-500 to-amber-400 p-3 text-white shadow-lift transition hover:scale-[1.04]">
+                  <Instagram className="h-5 w-5" />
+                  <span className="text-[11px] font-bold">Instagram</span>
+                </a>
+                <a href={SOCIALS.facebook} target="_blank" rel="noopener" aria-label="Facebook"
+                  className="group flex flex-col items-center gap-1.5 rounded-2xl bg-[#1877F2] p-3 text-white shadow-lift transition hover:scale-[1.04]">
+                  <Facebook className="h-5 w-5" />
+                  <span className="text-[11px] font-bold">Facebook</span>
+                </a>
+                <a href={SOCIALS.tiktok} target="_blank" rel="noopener" aria-label="TikTok"
+                  className="group flex flex-col items-center gap-1.5 rounded-2xl bg-black p-3 text-white shadow-lift transition hover:scale-[1.04]">
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true"><path d="M19.6 6.8a5.6 5.6 0 0 1-3.3-1.1 5.6 5.6 0 0 1-2.2-3.7H10.6v12.1a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V8a6.1 6.1 0 1 0 5.3 6V9a8.4 8.4 0 0 0 5.5 1.9V6.8z"/></svg>
+                  <span className="text-[11px] font-bold">TikTok</span>
+                </a>
               </div>
             </div>
 
@@ -769,7 +819,7 @@ function Contact() {
               {t("contact.altline")}{" "}
               <a href={`tel:${PHONE}`} className="font-semibold text-brand hover:underline">{PHONE_DISPLAY}</a>{" · "}
               <a href={WHATSAPP} target="_blank" rel="noopener" className="font-semibold text-success hover:underline">WhatsApp</a>{" · "}
-              <a href={`mailto:${EMAIL}`} className="font-semibold text-brand hover:underline">{EMAIL}</a>
+              <a href={EMAIL_HREF} className="font-semibold text-brand hover:underline">{EMAIL_DISPLAY}</a>
             </p>
           </form>
         </div>
@@ -832,10 +882,18 @@ function Footer() {
           <div className="leading-tight">
             <div className="text-sm font-bold">ERCA Büro</div>
             <div className="text-xs text-white/60">Erkan Catak · Juliusstraße 21, 45128 Essen</div>
-            <div className="text-xs text-white/60">{PHONE_DISPLAY} · {EMAIL}</div>
+            <div className="text-xs text-white/60">{PHONE_DISPLAY} · {EMAIL_DISPLAY}</div>
+            <div className="text-xs text-white/60">Fax: {FAX_DISPLAY}</div>
           </div>
         </div>
         <div className="flex flex-col items-center gap-3 sm:items-end">
+          <div className="flex items-center gap-2">
+            <a href={SOCIALS.instagram} target="_blank" rel="noopener" aria-label="Instagram" className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-pink-500 via-fuchsia-500 to-amber-400 text-white transition hover:scale-110"><Instagram className="h-4 w-4" /></a>
+            <a href={SOCIALS.facebook} target="_blank" rel="noopener" aria-label="Facebook" className="grid h-10 w-10 place-items-center rounded-full bg-[#1877F2] text-white transition hover:scale-110"><Facebook className="h-4 w-4" /></a>
+            <a href={SOCIALS.tiktok} target="_blank" rel="noopener" aria-label="TikTok" className="grid h-10 w-10 place-items-center rounded-full bg-black text-white transition hover:scale-110">
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true"><path d="M19.6 6.8a5.6 5.6 0 0 1-3.3-1.1 5.6 5.6 0 0 1-2.2-3.7H10.6v12.1a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V8a6.1 6.1 0 1 0 5.3 6V9a8.4 8.4 0 0 0 5.5 1.9V6.8z"/></svg>
+            </a>
+          </div>
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-sm">
             <Link to="/impressum" className="font-semibold text-white hover:underline">{t("footer.impressum")}</Link>
             <Link to="/datenschutz" className="font-semibold text-white hover:underline">{t("footer.datenschutz")}</Link>

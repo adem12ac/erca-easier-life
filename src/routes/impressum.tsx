@@ -41,8 +41,8 @@ function ImpressumPage() {
 
           <h2 className="mt-8 text-xl font-bold text-brand">Kontakt</h2>
           <p className="mt-2 text-sm leading-relaxed">
-            Telefon: <a href="tel:+4915212971388" className="text-brand hover:underline">+49 1521 2971388</a><br />
-            E-Mail: <a href="mailto:kontakt@erca-buero.de" className="text-brand hover:underline">kontakt@erca-buero.de</a>
+            Telefon: <a href="tel:+4915216651944" className="text-brand hover:underline">+49 1521 6651944</a><br />
+            E-Mail: <a href="mailto:kontakt@ercabüro.de" className="text-brand hover:underline">kontakt@ercabüro.de</a>
           </p>
 
           <h2 className="mt-8 text-xl font-bold text-brand">Umsatzsteuer-ID</h2>

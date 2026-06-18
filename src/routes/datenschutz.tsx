@@ -35,8 +35,8 @@ function DatenschutzPage() {
             <p className="mt-2">
               Verantwortlicher im Sinne der Datenschutz-Grundverordnung (DSGVO):<br />
               Erkan Catak, ERCA Büro, Juliusstraße 21, 45128 Essen<br />
-              Telefon: <a href="tel:+4915212971388" className="text-brand hover:underline">+49 1521 2971388</a><br />
-              E-Mail: <a href="mailto:kontakt@erca-buero.de" className="text-brand hover:underline">kontakt@erca-buero.de</a>
+              Telefon: <a href="tel:+4915216651944" className="text-brand hover:underline">+49 1521 6651944</a><br />
+              E-Mail: <a href="mailto:kontakt@ercabüro.de" className="text-brand hover:underline">kontakt@ercabüro.de</a>
             </p>
           </section>
 
@@ -97,7 +97,7 @@ function DatenschutzPage() {
           <section>
             <h2 className="text-xl font-bold text-brand">9. Kontakt für Datenschutzanfragen</h2>
             <p className="mt-2">
-              Bei Fragen zum Datenschutz wenden Sie sich bitte an: <a href="mailto:kontakt@erca-buero.de" className="text-brand hover:underline">kontakt@erca-buero.de</a>
+              Bei Fragen zum Datenschutz wenden Sie sich bitte an: <a href="mailto:kontakt@ercabüro.de" className="text-brand hover:underline">kontakt@ercabüro.de</a>
             </p>
           </section>
 

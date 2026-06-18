@@ -869,10 +869,18 @@ function Footer() {
           <div className="leading-tight">
             <div className="text-sm font-bold">ERCA Büro</div>
             <div className="text-xs text-white/60">Erkan Catak · Juliusstraße 21, 45128 Essen</div>
-            <div className="text-xs text-white/60">{PHONE_DISPLAY} · {EMAIL}</div>
+            <div className="text-xs text-white/60">{PHONE_DISPLAY} · {EMAIL_DISPLAY}</div>
+            <div className="text-xs text-white/60">Fax: {FAX_DISPLAY}</div>
           </div>
         </div>
         <div className="flex flex-col items-center gap-3 sm:items-end">
+          <div className="flex items-center gap-2">
+            <a href={SOCIALS.instagram} target="_blank" rel="noopener" aria-label="Instagram" className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-pink-500 via-fuchsia-500 to-amber-400 text-white transition hover:scale-110"><Instagram className="h-4 w-4" /></a>
+            <a href={SOCIALS.facebook} target="_blank" rel="noopener" aria-label="Facebook" className="grid h-10 w-10 place-items-center rounded-full bg-[#1877F2] text-white transition hover:scale-110"><Facebook className="h-4 w-4" /></a>
+            <a href={SOCIALS.tiktok} target="_blank" rel="noopener" aria-label="TikTok" className="grid h-10 w-10 place-items-center rounded-full bg-black text-white transition hover:scale-110">
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true"><path d="M19.6 6.8a5.6 5.6 0 0 1-3.3-1.1 5.6 5.6 0 0 1-2.2-3.7H10.6v12.1a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V8a6.1 6.1 0 1 0 5.3 6V9a8.4 8.4 0 0 0 5.5 1.9V6.8z"/></svg>
+            </a>
+          </div>
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-sm">
             <Link to="/impressum" className="font-semibold text-white hover:underline">{t("footer.impressum")}</Link>
             <Link to="/datenschutz" className="font-semibold text-white hover:underline">{t("footer.datenschutz")}</Link>

@@ -42,6 +42,7 @@ function ImpressumPage() {
           <h2 className="mt-8 text-xl font-bold text-brand">Kontakt</h2>
           <p className="mt-2 text-sm leading-relaxed">
             Telefon: <a href="tel:+4915216651944" className="text-brand hover:underline">+49 1521 6651944</a><br />
+            Fax: 0201 84168352<br />
             E-Mail: <a href="mailto:kontakt@ercabüro.de" className="text-brand hover:underline">kontakt@ercabüro.de</a>
           </p>
 

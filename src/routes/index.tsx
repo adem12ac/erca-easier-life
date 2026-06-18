@@ -343,8 +343,6 @@ function LangGrid() {
   );
 }
 
-function _LangGridUnused() {
-  return null;
 
 const PROBLEMS_KEYS = ["ps.p.1","ps.p.2","ps.p.3","ps.p.4","ps.p.5","ps.p.6"];
 const SOLUTIONS_KEYS = ["ps.s.1","ps.s.2","ps.s.3","ps.s.4","ps.s.5","ps.s.6"];

@@ -676,13 +676,20 @@ function Contact() {
                   <div className="truncate text-sm font-semibold">{t("contact.label.whatsapp.cta")}</div>
                 </div>
               </a>
-              <a href={`mailto:${EMAIL}`} className="group flex items-center gap-4 rounded-2xl bg-white/5 p-4 transition hover:bg-white/10">
+              <a href={EMAIL_HREF} className="group flex items-center gap-4 rounded-2xl bg-white/5 p-4 transition hover:bg-white/10">
                 <div className="grid h-11 w-11 place-items-center rounded-xl bg-success text-success-foreground"><Mail className="h-5 w-5" /></div>
                 <div className="min-w-0">
                   <div className="text-xs text-white/60">{t("contact.label.email")}</div>
-                  <div className="truncate text-sm font-semibold">{EMAIL}</div>
+                  <div className="truncate text-sm font-semibold">{EMAIL_DISPLAY}</div>
                 </div>
               </a>
+              <div className="flex items-center gap-4 rounded-2xl bg-white/5 p-4">
+                <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/10"><Printer className="h-5 w-5" /></div>
+                <div className="min-w-0">
+                  <div className="text-xs text-white/60">{t("contact.label.fax")}</div>
+                  <div className="text-sm font-semibold">{FAX_DISPLAY}</div>
+                </div>
+              </div>
               <div className="flex items-center gap-4 rounded-2xl bg-white/5 p-4">
                 <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/10"><MapPin className="h-5 w-5" /></div>
                 <div className="min-w-0">
@@ -697,6 +704,27 @@ function Contact() {
                   <div className="text-sm font-semibold">{t("contact.hours.weekdays")}</div>
                   <div className="text-xs text-white/60">{t("contact.hours.sat")}</div>
                 </div>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-white/60">{t("contact.label.social")}</div>
+              <div className="grid grid-cols-3 gap-2">
+                <a href={SOCIALS.instagram} target="_blank" rel="noopener" aria-label="Instagram"
+                  className="group flex flex-col items-center gap-1.5 rounded-2xl bg-gradient-to-br from-pink-500 via-fuchsia-500 to-amber-400 p-3 text-white shadow-lift transition hover:scale-[1.04]">
+                  <Instagram className="h-5 w-5" />
+                  <span className="text-[11px] font-bold">Instagram</span>
+                </a>
+                <a href={SOCIALS.facebook} target="_blank" rel="noopener" aria-label="Facebook"
+                  className="group flex flex-col items-center gap-1.5 rounded-2xl bg-[#1877F2] p-3 text-white shadow-lift transition hover:scale-[1.04]">
+                  <Facebook className="h-5 w-5" />
+                  <span className="text-[11px] font-bold">Facebook</span>
+                </a>
+                <a href={SOCIALS.tiktok} target="_blank" rel="noopener" aria-label="TikTok"
+                  className="group flex flex-col items-center gap-1.5 rounded-2xl bg-black p-3 text-white shadow-lift transition hover:scale-[1.04]">
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true"><path d="M19.6 6.8a5.6 5.6 0 0 1-3.3-1.1 5.6 5.6 0 0 1-2.2-3.7H10.6v12.1a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V8a6.1 6.1 0 1 0 5.3 6V9a8.4 8.4 0 0 0 5.5 1.9V6.8z"/></svg>
+                  <span className="text-[11px] font-bold">TikTok</span>
+                </a>
               </div>
             </div>
 

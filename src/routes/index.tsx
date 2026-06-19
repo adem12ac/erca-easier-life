@@ -404,11 +404,6 @@ function ProblemSolution() {
   );
 }
 
-import bewerbungImg from "@/assets/bewerbung-service.jpg.asset.json";
-import aufenthaltImg from "@/assets/aufenthalt-service.jpg.asset.json";
-import buergergeldImg from "@/assets/buergergeld-service.jpg.asset.json";
-import handwerkerImg from "@/assets/handwerker-service.jpg.asset.json";
-import buerokratieImg from "@/assets/buerokratie-service.jpg.asset.json";
 
 type ServiceItem = {
   title: string;

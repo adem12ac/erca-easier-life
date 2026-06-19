@@ -7,12 +7,11 @@ import {
   ClipboardList, Network, Home, FolderOpen, Calculator, Instagram, Facebook,
   Check, ArrowRight, ShieldCheck, Star,
 } from "lucide-react";
-import logoAsset from "@/assets/erca-logo.png.asset.json";
-import bewerbungImg from "@/assets/bewerbung-service.jpg.asset.json";
-import aufenthaltImg from "@/assets/aufenthalt-service.jpg.asset.json";
-import buergergeldImg from "@/assets/buergergeld-service.jpg.asset.json";
-import handwerkerImg from "@/assets/handwerker-service.jpg.asset.json";
-import buerokratieImg from "@/assets/buerokratie-service.jpg.asset.json";
+import bewerbungImg from "@/assets/bewerbung-service.jpg";
+import aufenthaltImg from "@/assets/aufenthalt-service.jpg";
+import buergergeldImg from "@/assets/buergergeld-service.jpg";
+import handwerkerImg from "@/assets/handwerker-service.jpg";
+import buerokratieImg from "@/assets/buerokratie-service.jpg";
 import { useI18n, LANGUAGES, type Lang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
@@ -22,7 +21,7 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Mehrsprachige Unterstützung bei Anträgen, Behörden, Sozialleistungen und Bewerbungen. Persönlich, schnell und zuverlässig in Essen." },
       { property: "og:title", content: "ERCA Büro – Bürokratie einfach erledigt" },
       { property: "og:description", content: "Mehrsprachige Hilfe bei Anträgen, Behörden und Bewerbungen in Essen." },
-      { property: "og:image", content: logoAsset.url },
+      { property: "og:image", content: "/erca-logo.png" },
       { property: "og:url", content: "/" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -158,7 +157,7 @@ function Nav() {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 lg:px-8">
         <a href="#start" className="flex items-center gap-3 shrink-0">
           <img
-            src={logoAsset.url}
+            src="/erca-logo.png"
             alt="ERCA Büro Logo"
             className="h-16 w-auto sm:h-20"
             style={{ imageRendering: "auto" }}
@@ -421,7 +420,7 @@ const SERVICES: ServiceItem[] = [
     highlight: "die überzeugt",
     description:
       "Professionelle Erstellung von Lebenslauf, Anschreiben und vollständigen Bewerbungsunterlagen.",
-    image: bewerbungImg.url,
+    image: bewerbungImg,
     alt: "Bewerbungsservice – Lebenslauf und Anschreiben",
     benefits: ["Individuell erstellt", "Professionell formatiert", "Vollständig und fehlerfrei"],
     cta: "Jetzt Bewerbung erstellen lassen",
@@ -431,7 +430,7 @@ const SERVICES: ServiceItem[] = [
     highlight: "& Aufenthalt",
     description:
       "Unterstützung bei Aufenthaltstiteln, Familiennachzug und Einbürgerung.",
-    image: aufenthaltImg.url,
+    image: aufenthaltImg,
     alt: "Behördenhilfe – Aufenthalt, Familiennachzug, Einbürgerung",
     benefits: ["Persönliche Beratung", "Diskrete Bearbeitung", "Zuverlässige Unterstützung"],
     cta: "Beratung anfragen",
@@ -440,7 +439,7 @@ const SERVICES: ServiceItem[] = [
     title: "Bürgergeld, Wohngeld",
     highlight: "& Kindergeld",
     description: "Wir helfen bei Anträgen, Bescheiden und Nachweisen.",
-    image: buergergeldImg.url,
+    image: buergergeldImg,
     alt: "Hilfe bei Bürgergeld, Wohngeld und Kindergeld",
     benefits: ["Verständlich erklärt", "Schnell bearbeitet", "Unterstützung in Ihrer Sprache"],
     cta: "Jetzt Unterstützung erhalten",
@@ -450,7 +449,7 @@ const SERVICES: ServiceItem[] = [
     highlight: "& Kleinunternehmen",
     description:
       "Angebote, Rechnungen, Stundenzettel und komplette Büroorganisation – wir erledigen den Papierkram, Sie machen Ihr Geschäft.",
-    image: handwerkerImg.url,
+    image: handwerkerImg,
     alt: "Service für Handwerker und Kleinunternehmen",
     benefits: ["Angebote & Rechnungen", "Stundenzettel & Ablage", "Büroorganisation aus einer Hand"],
     cta: "Unverbindlich anfragen",
@@ -460,7 +459,7 @@ const SERVICES: ServiceItem[] = [
     highlight: "wir machen es einfach",
     description:
       "Anträge, Formulare und Behördenschreiben – persönlich, zuverlässig und in Ihrer Sprache.",
-    image: buerokratieImg.url,
+    image: buerokratieImg,
     alt: "Bürokratie-Service – Anträge, Formulare, Behördenschreiben",
     benefits: ["In Ihrer Sprache", "Persönlich betreut", "Zuverlässig & diskret"],
     cta: "Termin vereinbaren",
@@ -786,7 +785,7 @@ function Contact() {
           <div className="rounded-3xl bg-brand p-7 text-brand-foreground shadow-lift lg:col-span-2 lg:p-9">
             <div className="flex items-center gap-3">
               <div className="grid h-12 w-12 place-items-center rounded-xl bg-white p-1.5">
-                <img src={logoAsset.url} alt="ERCA" className="h-full w-full object-contain" />
+                <img src="/erca-logo.png" alt="ERCA" className="h-full w-full object-contain" />
               </div>
               <div>
                 <h3 className="text-xl font-bold">ERCA Büro</h3>
@@ -996,7 +995,7 @@ function Footer() {
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-5 text-center sm:flex-row sm:text-left lg:px-8">
         <div className="flex items-center gap-3">
           <div className="grid h-14 w-14 place-items-center rounded-2xl bg-white p-2">
-            <img src={logoAsset.url} alt="ERCA Büro Logo" className="h-full w-full object-contain" />
+            <img src="/erca-logo.png" alt="ERCA Büro Logo" className="h-full w-full object-contain" />
           </div>
           <div className="leading-tight">
             <div className="text-sm font-bold">ERCA Büro</div>

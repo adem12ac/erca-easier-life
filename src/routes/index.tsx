@@ -399,47 +399,166 @@ function ProblemSolution() {
   );
 }
 
-const SERVICE_ICONS = [FileText, Wallet, Globe2, Briefcase, LangIcon, ClipboardList, Wrench, Building2, Network, Building2, Home, FolderOpen, Calculator];
+import bewerbungImg from "@/assets/bewerbung-service.jpg.asset.json";
+import aufenthaltImg from "@/assets/aufenthalt-service.jpg.asset.json";
+import buergergeldImg from "@/assets/buergergeld-service.jpg.asset.json";
+import handwerkerImg from "@/assets/handwerker-service.jpg.asset.json";
+import buerokratieImg from "@/assets/buerokratie-service.jpg.asset.json";
+
+type ServiceItem = {
+  title: string;
+  highlight?: string;
+  description: string;
+  image: string;
+  alt: string;
+  benefits: string[];
+  cta: string;
+};
+
+const SERVICES: ServiceItem[] = [
+  {
+    title: "Bewerbung",
+    highlight: "die überzeugt",
+    description:
+      "Professionelle Erstellung von Lebenslauf, Anschreiben und vollständigen Bewerbungsunterlagen.",
+    image: bewerbungImg.url,
+    alt: "Bewerbungsservice – Lebenslauf und Anschreiben",
+    benefits: ["Individuell erstellt", "Professionell formatiert", "Vollständig und fehlerfrei"],
+    cta: "Jetzt Bewerbung erstellen lassen",
+  },
+  {
+    title: "Behördenhilfe",
+    highlight: "& Aufenthalt",
+    description:
+      "Unterstützung bei Aufenthaltstiteln, Familiennachzug und Einbürgerung.",
+    image: aufenthaltImg.url,
+    alt: "Behördenhilfe – Aufenthalt, Familiennachzug, Einbürgerung",
+    benefits: ["Persönliche Beratung", "Diskrete Bearbeitung", "Zuverlässige Unterstützung"],
+    cta: "Beratung anfragen",
+  },
+  {
+    title: "Bürgergeld, Wohngeld",
+    highlight: "& Kindergeld",
+    description: "Wir helfen bei Anträgen, Bescheiden und Nachweisen.",
+    image: buergergeldImg.url,
+    alt: "Hilfe bei Bürgergeld, Wohngeld und Kindergeld",
+    benefits: ["Verständlich erklärt", "Schnell bearbeitet", "Unterstützung in Ihrer Sprache"],
+    cta: "Jetzt Unterstützung erhalten",
+  },
+  {
+    title: "Handwerker",
+    highlight: "& Kleinunternehmen",
+    description:
+      "Angebote, Rechnungen, Stundenzettel und komplette Büroorganisation – wir erledigen den Papierkram, Sie machen Ihr Geschäft.",
+    image: handwerkerImg.url,
+    alt: "Service für Handwerker und Kleinunternehmen",
+    benefits: ["Angebote & Rechnungen", "Stundenzettel & Ablage", "Büroorganisation aus einer Hand"],
+    cta: "Unverbindlich anfragen",
+  },
+  {
+    title: "Deutsche Bürokratie –",
+    highlight: "wir machen es einfach",
+    description:
+      "Anträge, Formulare und Behördenschreiben – persönlich, zuverlässig und in Ihrer Sprache.",
+    image: buerokratieImg.url,
+    alt: "Bürokratie-Service – Anträge, Formulare, Behördenschreiben",
+    benefits: ["In Ihrer Sprache", "Persönlich betreut", "Zuverlässig & diskret"],
+    cta: "Termin vereinbaren",
+  },
+];
 
 function Services() {
   const { t } = useI18n();
   return (
-    <section id="leistungen" className="bg-white py-14 lg:py-20">
+    <section id="leistungen" className="relative bg-gradient-to-b from-white via-brand-soft/30 to-white py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionReveal className="mx-auto max-w-2xl text-center">
           <motion.div variants={reveal} className="inline-flex items-center gap-2 rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold text-brand">
             {t("nav.services")}
           </motion.div>
           <motion.h2 variants={reveal} className="mt-4 text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
-            {t("svc.title")}
+            Unsere Leistungen
           </motion.h2>
           <motion.p variants={reveal} className="mt-3 text-base text-foreground/70 sm:text-lg">
-            {t("svc.sub")}
+            Persönlich, mehrsprachig und zuverlässig – wir nehmen Ihnen den Papierkram ab.
           </motion.p>
         </SectionReveal>
 
-        <SectionReveal className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICE_ICONS.map((Icon, i) => {
-            const n = i + 1;
-            return (
-              <motion.div
-                key={n}
-                variants={reveal}
-                whileHover={{ y: -6 }}
-                className="group relative overflow-hidden rounded-3xl border border-border bg-white p-6 shadow-soft transition hover:-translate-y-1 hover:border-brand/30 hover:shadow-lift"
-              >
-                <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br from-success/20 to-brand/10 opacity-0 blur-2xl transition group-hover:opacity-100" />
-                <div className="brand-gradient mb-5 grid h-12 w-12 place-items-center rounded-2xl text-white shadow-lift transition group-hover:scale-110">
-                  <Icon className="h-5 w-5" strokeWidth={2} />
-                </div>
-                <h3 className="text-lg font-bold text-brand">{t(`svc.${n}.t`)}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-foreground/70">{t(`svc.${n}.d`)}</p>
-              </motion.div>
-            );
-          })}
-        </SectionReveal>
+        <div className="mt-14 space-y-12 lg:space-y-20">
+          {SERVICES.map((s, i) => (
+            <ServiceRow key={s.title} service={s} reverse={i % 2 === 1} />
+          ))}
+        </div>
       </div>
     </section>
+  );
+}
+
+function ServiceRow({ service, reverse }: { service: ServiceItem; reverse: boolean }) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      whileHover={{ y: -4 }}
+      className={`group grid items-center gap-8 lg:gap-12 lg:grid-cols-2 ${reverse ? "lg:[&>div:first-child]:order-2" : ""}`}
+    >
+      {/* Text card */}
+      <div className="relative overflow-hidden rounded-[24px] border border-white/60 bg-white/70 p-7 shadow-soft backdrop-blur-xl transition-all duration-500 group-hover:shadow-lift sm:p-9 lg:p-10">
+        <div className="absolute -left-16 -top-16 h-48 w-48 rounded-full bg-success/10 blur-3xl" aria-hidden />
+        <div className="absolute -right-20 bottom-0 h-56 w-56 rounded-full bg-brand/10 blur-3xl" aria-hidden />
+        <div className="relative">
+          <h3 className="text-2xl font-extrabold leading-tight text-brand sm:text-3xl lg:text-4xl">
+            {service.title}{" "}
+            {service.highlight && <span className="text-success">{service.highlight}</span>}
+          </h3>
+          <p className="mt-4 text-base leading-relaxed text-foreground/75 sm:text-lg">
+            {service.description}
+          </p>
+          <ul className="mt-6 space-y-3">
+            {service.benefits.map((b) => (
+              <li key={b} className="flex items-start gap-3 text-sm sm:text-base text-foreground/80">
+                <span className="mt-0.5 grid h-6 w-6 flex-none place-items-center rounded-full bg-success/15 text-success">
+                  <Check className="h-4 w-4" strokeWidth={3} />
+                </span>
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href={WHATSAPP}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white shadow-lift transition hover:bg-brand/90 hover:shadow-glow"
+            >
+              {service.cta}
+              <ArrowRight className="h-4 w-4" />
+            </a>
+            <a
+              href={`tel:${PHONE}`}
+              className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-white px-5 py-3 text-sm font-semibold text-brand transition hover:border-brand/40 hover:bg-brand-soft"
+            >
+              <Phone className="h-4 w-4" /> Anrufen
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Image */}
+      <div className="relative">
+        <div className="overflow-hidden rounded-[24px] shadow-soft transition-all duration-500 group-hover:shadow-lift">
+          <img
+            src={service.image}
+            alt={service.alt}
+            loading="lazy"
+            className="aspect-square w-full object-cover transition-transform duration-700 group-hover:scale-[1.03] sm:aspect-[4/3] lg:aspect-square"
+          />
+        </div>
+        <div className="pointer-events-none absolute inset-0 rounded-[24px] ring-1 ring-inset ring-black/5" aria-hidden />
+      </div>
+    </motion.article>
   );
 }
 

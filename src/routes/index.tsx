@@ -8,6 +8,11 @@ import {
   Check, ArrowRight, ShieldCheck, Star,
 } from "lucide-react";
 import logoAsset from "@/assets/erca-logo.png.asset.json";
+import bewerbungImg from "@/assets/bewerbung-service.jpg.asset.json";
+import aufenthaltImg from "@/assets/aufenthalt-service.jpg.asset.json";
+import buergergeldImg from "@/assets/buergergeld-service.jpg.asset.json";
+import handwerkerImg from "@/assets/handwerker-service.jpg.asset.json";
+import buerokratieImg from "@/assets/buerokratie-service.jpg.asset.json";
 import { useI18n, LANGUAGES, type Lang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({

@@ -1,9 +1,10 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
-export type Lang = "de" | "tr" | "ar" | "ru" | "uk" | "sq";
+export type Lang = "de" | "en" | "tr" | "ar" | "ru" | "uk" | "sq";
 
 export const LANGUAGES: { code: Lang; label: string; flag: string; native: string }[] = [
   { code: "de", label: "Deutsch", flag: "🇩🇪", native: "Deutsch" },
+  { code: "en", label: "Englisch", flag: "🇬🇧", native: "English" },
   { code: "tr", label: "Türkisch", flag: "🇹🇷", native: "Türkçe" },
   { code: "ar", label: "Arabisch", flag: "🇸🇦", native: "العربية" },
   { code: "ru", label: "Russisch", flag: "🇷🇺", native: "Русский" },

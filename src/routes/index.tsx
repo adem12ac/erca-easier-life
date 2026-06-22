@@ -550,7 +550,7 @@ function ServiceRow({ service, reverse }: { service: ServiceItem; reverse: boole
               href={`tel:${PHONE}`}
               className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-white px-5 py-3 text-sm font-semibold text-brand transition hover:border-brand/40 hover:bg-brand-soft"
             >
-              <Phone className="h-4 w-4" /> Anrufen
+              <Phone className="h-4 w-4" /> {t("nav.call")}
             </a>
           </div>
         </div>

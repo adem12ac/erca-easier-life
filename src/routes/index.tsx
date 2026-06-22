@@ -504,7 +504,6 @@ function Services() {
 
 function ServiceRow({ service, reverse }: { service: ServiceItem; reverse: boolean }) {
   const { t } = useI18n();
-  void t;
   return (
     <motion.article
       initial={{ opacity: 0, y: 32 }}

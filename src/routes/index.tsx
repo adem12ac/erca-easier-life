@@ -414,60 +414,69 @@ type ServiceItem = {
   cta: string;
 };
 
-const SERVICES: ServiceItem[] = [
-  {
-    title: "Bewerbung",
-    highlight: "die überzeugt",
-    description:
-      "Professionelle Erstellung von Lebenslauf, Anschreiben und vollständigen Bewerbungsunterlagen.",
-    image: bewerbungImg,
-    alt: "Bewerbungsservice – Lebenslauf und Anschreiben",
-    benefits: ["Individuell erstellt", "Professionell formatiert", "Vollständig und fehlerfrei"],
-    cta: "Jetzt Bewerbung erstellen lassen",
-  },
-  {
-    title: "Behördenhilfe",
-    highlight: "& Aufenthalt",
-    description:
-      "Unterstützung bei Aufenthaltstiteln, Familiennachzug und Einbürgerung.",
-    image: aufenthaltImg,
-    alt: "Behördenhilfe – Aufenthalt, Familiennachzug, Einbürgerung",
-    benefits: ["Persönliche Beratung", "Diskrete Bearbeitung", "Zuverlässige Unterstützung"],
-    cta: "Beratung anfragen",
-  },
-  {
-    title: "Bürgergeld, Wohngeld",
-    highlight: "& Kindergeld",
-    description: "Wir helfen bei Anträgen, Bescheiden und Nachweisen.",
-    image: buergergeldImg,
-    alt: "Hilfe bei Bürgergeld, Wohngeld und Kindergeld",
-    benefits: ["Verständlich erklärt", "Schnell bearbeitet", "Unterstützung in Ihrer Sprache"],
-    cta: "Jetzt Unterstützung erhalten",
-  },
-  {
-    title: "Handwerker",
-    highlight: "& Kleinunternehmen",
-    description:
-      "Angebote, Rechnungen, Stundenzettel und komplette Büroorganisation – wir erledigen den Papierkram, Sie machen Ihr Geschäft.",
-    image: handwerkerImg,
-    alt: "Service für Handwerker und Kleinunternehmen",
-    benefits: ["Angebote & Rechnungen", "Stundenzettel & Ablage", "Büroorganisation aus einer Hand"],
-    cta: "Unverbindlich anfragen",
-  },
-  {
-    title: "Deutsche Bürokratie –",
-    highlight: "wir machen es einfach",
-    description:
-      "Anträge, Formulare und Behördenschreiben – persönlich, zuverlässig und in Ihrer Sprache.",
-    image: buerokratieImg,
-    alt: "Bürokratie-Service – Anträge, Formulare, Behördenschreiben",
-    benefits: ["In Ihrer Sprache", "Persönlich betreut", "Zuverlässig & diskret"],
-    cta: "Termin vereinbaren",
-  },
-];
+const SERVICE_IMAGES = [bewerbungImg, aufenthaltImg, buergergeldImg, handwerkerImg, buerokratieImg];
+
+type ServiceTxt = { title: string; highlight: string; description: string; benefits: [string, string, string]; cta: string; alt: string };
+
+const SERVICE_TEXTS: Record<Lang, ServiceTxt[]> = {
+  de: [
+    { title: "Bewerbung", highlight: "die überzeugt", description: "Professionelle Erstellung von Lebenslauf, Anschreiben und vollständigen Bewerbungsunterlagen.", benefits: ["Individuell erstellt", "Professionell formatiert", "Vollständig und fehlerfrei"], cta: "Jetzt Bewerbung erstellen lassen", alt: "Bewerbungsservice – Lebenslauf und Anschreiben" },
+    { title: "Behördenhilfe", highlight: "& Aufenthalt", description: "Unterstützung bei Aufenthaltstiteln, Familiennachzug und Einbürgerung.", benefits: ["Persönliche Beratung", "Diskrete Bearbeitung", "Zuverlässige Unterstützung"], cta: "Beratung anfragen", alt: "Behördenhilfe – Aufenthalt, Familiennachzug, Einbürgerung" },
+    { title: "Bürgergeld, Wohngeld", highlight: "& Kindergeld", description: "Wir helfen bei Anträgen, Bescheiden und Nachweisen.", benefits: ["Verständlich erklärt", "Schnell bearbeitet", "Unterstützung in Ihrer Sprache"], cta: "Jetzt Unterstützung erhalten", alt: "Hilfe bei Bürgergeld, Wohngeld und Kindergeld" },
+    { title: "Handwerker", highlight: "& Kleinunternehmen", description: "Angebote, Rechnungen, Stundenzettel und komplette Büroorganisation – wir erledigen den Papierkram, Sie machen Ihr Geschäft.", benefits: ["Angebote & Rechnungen", "Stundenzettel & Ablage", "Büroorganisation aus einer Hand"], cta: "Unverbindlich anfragen", alt: "Service für Handwerker und Kleinunternehmen" },
+    { title: "Deutsche Bürokratie –", highlight: "wir machen es einfach", description: "Anträge, Formulare und Behördenschreiben – persönlich, zuverlässig und in Ihrer Sprache.", benefits: ["In Ihrer Sprache", "Persönlich betreut", "Zuverlässig & diskret"], cta: "Termin vereinbaren", alt: "Bürokratie-Service – Anträge, Formulare, Behördenschreiben" },
+  ],
+  en: [
+    { title: "Job application", highlight: "that convinces", description: "Professional creation of CV, cover letter and complete application portfolio.", benefits: ["Individually crafted", "Professionally formatted", "Complete and error-free"], cta: "Get your application now", alt: "Application service – CV and cover letter" },
+    { title: "Authority help", highlight: "& residence", description: "Support with residence permits, family reunification and naturalisation.", benefits: ["Personal consultation", "Discreet handling", "Reliable support"], cta: "Request consultation", alt: "Authority help – residence, family reunification, naturalisation" },
+    { title: "Bürgergeld, housing", highlight: "& child benefit", description: "We help with applications, decisions and proof documents.", benefits: ["Clearly explained", "Quickly processed", "Support in your language"], cta: "Get support now", alt: "Help with Bürgergeld, housing and child benefit" },
+    { title: "Tradespeople", highlight: "& small businesses", description: "Quotes, invoices, time sheets and complete office organisation – we handle the paperwork, you run your business.", benefits: ["Quotes & invoices", "Time sheets & filing", "Office organisation from one source"], cta: "Make a free enquiry", alt: "Service for tradespeople and small businesses" },
+    { title: "German bureaucracy –", highlight: "we make it easy", description: "Applications, forms and official letters – personal, reliable and in your language.", benefits: ["In your language", "Personally handled", "Reliable & discreet"], cta: "Make an appointment", alt: "Bureaucracy service – applications, forms, official letters" },
+  ],
+  tr: [
+    { title: "İş başvurusu", highlight: "ikna eden", description: "Profesyonel CV, ön yazı ve eksiksiz başvuru dosyası hazırlığı.", benefits: ["Bireysel hazırlanır", "Profesyonel biçim", "Eksiksiz ve hatasız"], cta: "Hemen başvuru hazırlat", alt: "Başvuru servisi – CV ve ön yazı" },
+    { title: "Resmi daire yardımı", highlight: "& oturum", description: "Oturum izni, aile birleşimi ve vatandaşlıkta destek.", benefits: ["Kişisel danışmanlık", "Gizli işlem", "Güvenilir destek"], cta: "Danışmanlık talep et", alt: "Resmi daire yardımı – oturum, aile birleşimi, vatandaşlık" },
+    { title: "Bürgergeld, Wohngeld", highlight: "& çocuk parası", description: "Başvuru, karar ve belgelerde yardımcı oluyoruz.", benefits: ["Anlaşılır anlatım", "Hızlı işlem", "Kendi dilinizde destek"], cta: "Hemen destek al", alt: "Bürgergeld, Wohngeld ve çocuk parası yardımı" },
+    { title: "Esnaf", highlight: "& küçük işletmeler", description: "Teklif, fatura, mesai listesi ve tüm büro organizasyonu – evrak bizden, iş sizden.", benefits: ["Teklif & fatura", "Mesai & arşiv", "Tek elden büro organizasyonu"], cta: "Ücretsiz sor", alt: "Esnaf ve küçük işletmeler için servis" },
+    { title: "Alman bürokrasisi –", highlight: "biz kolaylaştırıyoruz", description: "Başvuru, form ve resmi yazılar – kişisel, güvenilir ve kendi dilinizde.", benefits: ["Kendi dilinizde", "Kişisel ilgi", "Güvenilir & gizli"], cta: "Randevu al", alt: "Bürokrasi servisi – başvuru, form, resmi yazı" },
+  ],
+  ar: [
+    { title: "طلب التوظيف", highlight: "الذي يُقنع", description: "إعداد احترافي للسيرة الذاتية وخطاب التقديم وملف التوظيف الكامل.", benefits: ["إعداد فردي", "تنسيق احترافي", "كامل وخالٍ من الأخطاء"], cta: "اطلب إعداد طلبك الآن", alt: "خدمة طلبات التوظيف – السيرة الذاتية وخطاب التقديم" },
+    { title: "مساعدة الدوائر", highlight: "والإقامة", description: "دعم في تصاريح الإقامة ولمّ شمل الأسرة والتجنّس.", benefits: ["استشارة شخصية", "معالجة سرّية", "دعم موثوق"], cta: "اطلب استشارة", alt: "مساعدة الدوائر – الإقامة، لمّ الشمل، التجنّس" },
+    { title: "Bürgergeld و Wohngeld", highlight: "وعلاوة الأطفال", description: "نساعدك في الطلبات والقرارات والمستندات.", benefits: ["شرح واضح", "معالجة سريعة", "دعم بلغتك"], cta: "احصل على الدعم", alt: "مساعدة في Bürgergeld و Wohngeld وعلاوة الأطفال" },
+    { title: "الحرفيون", highlight: "والشركات الصغيرة", description: "عروض، فواتير، كشوف ساعات وتنظيم مكتبي كامل – نحن للأوراق وأنت لعملك.", benefits: ["عروض وفواتير", "كشوف وأرشفة", "تنظيم مكتبي من جهة واحدة"], cta: "استفسار مجاني", alt: "خدمة للحرفيين والشركات الصغيرة" },
+    { title: "البيروقراطية الألمانية –", highlight: "نجعلها سهلة", description: "طلبات ونماذج ورسائل رسمية – بشكل شخصي، موثوق وبلغتك.", benefits: ["بلغتك", "متابعة شخصية", "موثوق وسرّي"], cta: "احجز موعداً", alt: "خدمة البيروقراطية – طلبات، نماذج، رسائل رسمية" },
+  ],
+  ru: [
+    { title: "Резюме и заявка", highlight: "которые убеждают", description: "Профессиональное составление резюме, сопроводительного письма и полного пакета документов.", benefits: ["Индивидуально", "Профессиональное оформление", "Полно и без ошибок"], cta: "Заказать заявку", alt: "Сервис заявок – резюме и сопроводительное письмо" },
+    { title: "Помощь в ведомствах", highlight: "и ВНЖ", description: "Поддержка по ВНЖ, воссоединению семьи и натурализации.", benefits: ["Личная консультация", "Конфиденциально", "Надёжная поддержка"], cta: "Запросить консультацию", alt: "Помощь в ведомствах – ВНЖ, воссоединение, натурализация" },
+    { title: "Bürgergeld, Wohngeld", highlight: "и Kindergeld", description: "Помогаем с заявлениями, решениями и документами.", benefits: ["Понятно объясняем", "Быстрая обработка", "Поддержка на вашем языке"], cta: "Получить поддержку", alt: "Помощь по Bürgergeld, Wohngeld и Kindergeld" },
+    { title: "Ремесленники", highlight: "и малый бизнес", description: "Сметы, счета, табели и полное офисное сопровождение – бумаги на нас, дело за вами.", benefits: ["Сметы и счета", "Табели и архив", "Офис из одних рук"], cta: "Бесплатный запрос", alt: "Сервис для ремесленников и малого бизнеса" },
+    { title: "Немецкая бюрократия –", highlight: "мы упрощаем", description: "Заявления, формы и письма ведомств – лично, надёжно и на вашем языке.", benefits: ["На вашем языке", "Личное сопровождение", "Надёжно и конфиденциально"], cta: "Записаться", alt: "Бюрократия – заявления, формы, письма" },
+  ],
+  uk: [
+    { title: "Резюме та заявка", highlight: "що переконують", description: "Професійне складання резюме, супровідного листа і повного пакету документів.", benefits: ["Індивідуально", "Професійне оформлення", "Повно та без помилок"], cta: "Замовити заявку", alt: "Сервіс заявок – резюме та супровідний лист" },
+    { title: "Допомога з відомствами", highlight: "та ВНЖ", description: "Підтримка з ВНЖ, возз'єднанням сім'ї та натуралізацією.", benefits: ["Особиста консультація", "Конфіденційно", "Надійна підтримка"], cta: "Запитати консультацію", alt: "Допомога з відомствами – ВНЖ, возз'єднання, натуралізація" },
+    { title: "Bürgergeld, Wohngeld", highlight: "та Kindergeld", description: "Допомагаємо з заявами, рішеннями та документами.", benefits: ["Зрозуміло пояснюємо", "Швидко обробляємо", "Підтримка вашою мовою"], cta: "Отримати підтримку", alt: "Допомога з Bürgergeld, Wohngeld та Kindergeld" },
+    { title: "Ремісники", highlight: "та малий бізнес", description: "Пропозиції, рахунки, табелі та повна офісна організація – папери на нас, справа за вами.", benefits: ["Пропозиції та рахунки", "Табелі та архів", "Офіс з одних рук"], cta: "Безкоштовний запит", alt: "Сервіс для ремісників та малого бізнесу" },
+    { title: "Німецька бюрократія –", highlight: "ми спрощуємо", description: "Заяви, форми та листи відомств – особисто, надійно та вашою мовою.", benefits: ["Вашою мовою", "Особистий супровід", "Надійно та конфіденційно"], cta: "Записатися", alt: "Бюрократія – заяви, форми, листи" },
+  ],
+  sq: [
+    { title: "Aplikim pune", highlight: "që bind", description: "Përgatitje profesionale e CV-së, letrës motivuese dhe dosjes së plotë.", benefits: ["I personalizuar", "Formatim profesional", "I plotë dhe pa gabime"], cta: "Porosit aplikimin tani", alt: "Shërbim aplikimi – CV dhe letër motivuese" },
+    { title: "Ndihmë me institucionet", highlight: "& qëndrimi", description: "Mbështetje për leje qëndrimi, bashkim familjar dhe natyralizim.", benefits: ["Këshillim personal", "Trajtim diskret", "Mbështetje e besueshme"], cta: "Kërko këshillim", alt: "Ndihmë me institucionet – qëndrim, bashkim familjar, natyralizim" },
+    { title: "Bürgergeld, Wohngeld", highlight: "& pagesa fëmijësh", description: "Ndihmojmë me aplikime, vendime dhe dokumente.", benefits: ["Shpjegim i qartë", "Përpunim i shpejtë", "Mbështetje në gjuhën tuaj"], cta: "Merr mbështetje tani", alt: "Ndihmë me Bürgergeld, Wohngeld dhe pagesa fëmijësh" },
+    { title: "Mjeshtër", highlight: "& biznese të vogla", description: "Oferta, fatura, fletëpunësh dhe organizim i plotë i zyrës – ne marrim letrat, ju biznesin.", benefits: ["Oferta & fatura", "Fletëpunësh & arkivim", "Zyra nga një burim"], cta: "Pyetje pa detyrim", alt: "Shërbim për mjeshtër dhe biznese të vogla" },
+    { title: "Burokracia gjermane –", highlight: "ne e bëjmë të lehtë", description: "Aplikime, formularë dhe letra zyrtare – personalisht, me besueshmëri dhe në gjuhën tuaj.", benefits: ["Në gjuhën tuaj", "Trajtim personal", "I besueshëm & diskret"], cta: "Cakto takim", alt: "Shërbim burokracie – aplikime, formularë, letra zyrtare" },
+  ],
+};
 
 function Services() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
+  const texts = SERVICE_TEXTS[lang] ?? SERVICE_TEXTS.de;
+  const services: ServiceItem[] = texts.map((x, i) => ({
+    title: x.title, highlight: x.highlight, description: x.description,
+    image: SERVICE_IMAGES[i], alt: x.alt, benefits: x.benefits, cta: x.cta,
+  }));
   return (
     <section id="leistungen" className="relative bg-gradient-to-b from-white via-brand-soft/30 to-white py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
@@ -476,15 +485,15 @@ function Services() {
             {t("nav.services")}
           </motion.div>
           <motion.h2 variants={reveal} className="mt-4 text-3xl font-extrabold tracking-tight text-brand sm:text-4xl lg:text-5xl">
-            Unsere Leistungen
+            {t("svc.title")}
           </motion.h2>
           <motion.p variants={reveal} className="mt-3 text-base text-foreground/70 sm:text-lg">
-            Persönlich, mehrsprachig und zuverlässig – wir nehmen Ihnen den Papierkram ab.
+            {t("svc.sub")}
           </motion.p>
         </SectionReveal>
 
         <div className="mt-14 space-y-12 lg:space-y-20">
-          {SERVICES.map((s, i) => (
+          {services.map((s, i) => (
             <ServiceRow key={s.title} service={s} reverse={i % 2 === 1} />
           ))}
         </div>
@@ -494,6 +503,7 @@ function Services() {
 }
 
 function ServiceRow({ service, reverse }: { service: ServiceItem; reverse: boolean }) {
+  const { t } = useI18n();
   return (
     <motion.article
       initial={{ opacity: 0, y: 32 }}
@@ -539,7 +549,7 @@ function ServiceRow({ service, reverse }: { service: ServiceItem; reverse: boole
               href={`tel:${PHONE}`}
               className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-white px-5 py-3 text-sm font-semibold text-brand transition hover:border-brand/40 hover:bg-brand-soft"
             >
-              <Phone className="h-4 w-4" /> Anrufen
+              <Phone className="h-4 w-4" /> {t("nav.call")}
             </a>
           </div>
         </div>

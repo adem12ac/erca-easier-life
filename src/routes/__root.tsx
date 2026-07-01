@@ -13,7 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { I18nProvider } from "../lib/i18n";
 
-const SITE_URL = "https://xn--ercabro-r2a.de"; // ercabüro.de
+const SITE_URL = "https://www.xn--ercabro-r2a.de"; // ercabüro.de
 const OG_IMAGE = `${SITE_URL}/erca-logo.png`;
 
 function NotFoundComponent() {

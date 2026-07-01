@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://xn--ercabro-r2a.de/sitemap.xml
+Sitemap: https://www.xn--ercabro-r2a.de/sitemap.xml

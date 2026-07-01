@@ -45,22 +45,6 @@ function ImpressumPage() {
             E-Mail: <a href="mailto:kontakt@ercabüro.de" className="text-brand hover:underline">kontakt@ercabüro.de</a>
           </p>
 
-          <h2 className="mt-8 text-xl font-bold text-brand">Umsatzsteuer-ID</h2>
-          <p className="mt-2 text-sm leading-relaxed">
-            Umsatzsteuer-Identifikationsnummer gem. § 27 a UStG:<br />
-            <span className="text-muted-foreground">[Platzhalter – bitte ergänzen]</span>
-          </p>
-
-          <h2 className="mt-8 text-xl font-bold text-brand">Steuernummer</h2>
-          <p className="mt-2 text-sm leading-relaxed">
-            <span className="text-muted-foreground">[Platzhalter – bitte ergänzen]</span>
-          </p>
-
-          <h2 className="mt-8 text-xl font-bold text-brand">Aufsichtsbehörde</h2>
-          <p className="mt-2 text-sm leading-relaxed">
-            <span className="text-muted-foreground">[Platzhalter – falls erforderlich, zuständige Aufsichtsbehörde ergänzen]</span>
-          </p>
-
           <h2 className="mt-8 text-xl font-bold text-brand">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
           <p className="mt-2 text-sm leading-relaxed">Erkan Catak, Anschrift wie oben.</p>
 

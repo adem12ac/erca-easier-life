@@ -12,7 +12,9 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { I18nProvider } from "../lib/i18n";
-import logoAsset from "../assets/erca-logo.png.asset.json";
+
+const SITE_URL = "https://xn--ercabro-r2a.de"; // ercabüro.de
+const OG_IMAGE = `${SITE_URL}/erca-logo.png`;
 
 function NotFoundComponent() {
   return (
@@ -80,25 +82,30 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#0D2A52" },
-      { title: "ERCA Büro – Büroservice & Behördenhilfe in Essen" },
-      { name: "description", content: "Mehrsprachige Unterstützung bei Anträgen, Behördenangelegenheiten, Sozialleistungen und Bewerbungen. Persönlich und zuverlässig in Essen." },
+      { title: "ERCA Büro Essen – Büroservice, Behördenhilfe & Bewerbungen" },
+      { name: "description", content: "ERCA Büro in Essen: mehrsprachige Hilfe bei Anträgen, Behörden, Bürgergeld, Aufenthalt und Bewerbungen. Persönlich, schnell und zuverlässig." },
+      { name: "keywords", content: "ERCA Büro, ERCA Büro Essen, Büroservice Essen, Behördenhilfe Essen, Bewerbungsservice Essen, Bürgergeld Antrag, Aufenthalt Einbürgerung, Anträge ausfüllen Essen" },
+      { name: "robots", content: "index, follow" },
       { name: "author", content: "ERCA Büro" },
+      { name: "geo.region", content: "DE-NW" },
+      { name: "geo.placename", content: "Essen" },
       { property: "og:site_name", content: "ERCA Büro" },
-      { property: "og:title", content: "ERCA Büro – Büroservice & Behördenhilfe in Essen" },
-      { property: "og:description", content: "Mehrsprachige Unterstützung bei Anträgen, Behördenangelegenheiten, Sozialleistungen und Bewerbungen. Persönlich und zuverlässig in Essen." },
+      { property: "og:title", content: "ERCA Büro Essen – Büroservice, Behördenhilfe & Bewerbungen" },
+      { property: "og:description", content: "Mehrsprachige Hilfe bei Anträgen, Behörden, Bürgergeld, Aufenthalt und Bewerbungen in Essen. Persönlich und zuverlässig." },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: logoAsset.url },
+      { property: "og:locale", content: "de_DE" },
+      { property: "og:url", content: `${SITE_URL}/` },
+      { property: "og:image", content: OG_IMAGE },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "ERCA Büro – Büroservice & Behördenhilfe in Essen" },
-      { name: "twitter:description", content: "Mehrsprachige Unterstützung bei Anträgen, Behördenangelegenheiten, Sozialleistungen und Bewerbungen. Persönlich und zuverlässig in Essen." },
-      { name: "twitter:image", content: logoAsset.url },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/987e87f8-27d8-4020-947e-8bd3fb83d2a0/id-preview-19e88257--f1414310-7334-4510-81de-d50d0eed2a75.lovable.app-1781607571626.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/987e87f8-27d8-4020-947e-8bd3fb83d2a0/id-preview-19e88257--f1414310-7334-4510-81de-d50d0eed2a75.lovable.app-1781607571626.png" },
+      { name: "twitter:title", content: "ERCA Büro Essen – Büroservice, Behördenhilfe & Bewerbungen" },
+      { name: "twitter:description", content: "Mehrsprachige Hilfe bei Anträgen, Behörden, Bürgergeld, Aufenthalt und Bewerbungen in Essen." },
+      { name: "twitter:image", content: OG_IMAGE },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: logoAsset.url, type: "image/png" },
-      { rel: "apple-touch-icon", href: logoAsset.url },
+      { rel: "canonical", href: `${SITE_URL}/` },
+      { rel: "icon", href: "/erca-logo.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/erca-logo.png" },
     ],
   }),
   shellComponent: RootShell,
@@ -107,11 +114,41 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+const STRUCTURED_DATA = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": `${SITE_URL}/#business`,
+  name: "ERCA Büro",
+  description:
+    "Mehrsprachiger Büroservice in Essen: Hilfe bei Anträgen, Behörden, Bürgergeld, Aufenthalt, Einbürgerung und Bewerbungen.",
+  url: `${SITE_URL}/`,
+  image: OG_IMAGE,
+  logo: OG_IMAGE,
+  telephone: "+4915216651944",
+  faxNumber: "+4920184168352",
+  email: "kontakt@ercabüro.de",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Essen",
+    addressRegion: "NRW",
+    addressCountry: "DE",
+  },
+  areaServed: { "@type": "City", name: "Essen" },
+  sameAs: [
+    "https://www.instagram.com/buroerca",
+    "https://www.facebook.com/share/1EQS3cAbZu/",
+  ],
+};
+
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="de">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(STRUCTURED_DATA).replace(/</g, "\\u003c") }}
+        />
       </head>
       <body>
         {children}

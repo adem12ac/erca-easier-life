@@ -22,10 +22,11 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "ERCA Büro – Bürokratie einfach erledigt" },
       { property: "og:description", content: "Mehrsprachige Hilfe bei Anträgen, Behörden und Bewerbungen in Essen." },
       { property: "og:image", content: "/erca-logo.png" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: "https://xn--ercabro-r2a.de/" },
+      { property: "og:locale", content: "de_DE" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: "https://xn--ercabro-r2a.de/" }],
   }),
   component: LandingPage,
 });

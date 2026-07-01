@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import logoAsset from "@/assets/erca-logo.png.asset.json";
 
 export const Route = createFileRoute("/datenschutz")({
   head: () => ({
@@ -19,7 +18,7 @@ function DatenschutzPage() {
       <header className="border-b border-border bg-white">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-5 py-4 lg:px-8">
           <Link to="/" className="flex items-center gap-2.5">
-            <img src={logoAsset.url} alt="ERCA Büro" className="h-12 w-auto" />
+            <img src="/erca-logo.png" alt="ERCA Büro" className="h-12 w-auto" />
           </Link>
           <Link to="/" className="text-sm font-semibold text-brand hover:underline">← Zur Startseite</Link>
         </div>
